@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: head('대형폐기물 관리')">
+    <meta charset="UTF-8">
+    <title th:text="${title}">대형 폐기물 관리</title>
+</head>
+
+<body th:align="center">
+<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu-admin">
+</nav>
+<div class="p-3 mb-2 bg-light rounded-1">
+    <div class="d-flex justify-content-center">
+        <h3  class="fw-bold">대형 폐기물 관리</h3>
+    </div>
+</div>
+
+<div class="list">
+    <div class="d-flex justify-content-center">
+        <form method="post" action="/admin/item/add.do">
+            <input value="" type="text" name="wasteName" placeholder="폐기물명"
+                   required>
+            <input value="" type="text" name="wasteDetail" placeholder="규격">
+            <input type="text" name="price" placeholder="가격" required>
+            <!--            <input type="text" name="sortValue" placeholder="순서" required>-->
+            <button type="submit">품목 추가</button>
+        </form>
+    </div>
+
+    <div class="d-flex justify-content-center">
+    <table>
+        <thead>
+        <tr th:align="center">
+            <th>번호</th>
+            <th>
+                폐기물명
+            </th>
+            <th>
+                규격
+            </th>
+            <th>
+                가격
+            </th>
+            <!--            <th>-->
+            <!--                순서-->
+            <!--            </th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="x : ${list}">
+            <td th:text="${x.wasteId}">
+                <input type="hidden" name="id" th:value="${x.wasteId}"/>
+                <p th:text="${x.wasteId}">1</p>
+            </td>
+            <td>
+                <input th:value="${x.wasteName}" type="text" name="wasteName"/>
+            </td>
+            <td>
+                <input th:value="${x.wasteDetail}" type="text"
+                       name="wasteDetail"/>
+            </td>
+            <td>
+                <input th:value="${x.price}" type="text" name="price"/>
+            </td>
+            <td>
+                <div class="inline-div">
+                    <form id="updateForm" method="post"
+                          action="/admin/item/update.do">
+                        <input type="hidden" name="wasteId"
+                               th:value="${x.wasteId}"/>
+                        <input type="hidden" name="wasteName"
+                               th:value="${x.wasteName}"/>
+                        <input type="hidden" name="wasteDetail"
+                               th:value="${x.wasteDetail}"/>
+                        <input type="hidden" name="price"
+                               th:value="${x.price}"/>
+                        <button type="submit" id="updateButton">수정</button>
+                    </form>
+                </div>
+
+                <div class="inline-div">
+                    <form id="deleteForm" method="post"
+                          action="/admin/item/delete.do">
+                        <input type="hidden" name="wasteId"
+                               th:value="${x.wasteId}"/>
+                        <button type="submit">삭제</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+
+        <tr th:if="${#lists.size(list) < 1}">
+            <td colspan="5">
+                <p class="nothing">내용이 없습니다.</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+<script>
+    (function () {
+        const updateButton = document.getElementById("updateButton");
+        updateButton.addEventListener("click", function(e) {
+            e.preventDefault();
+
+        })
+    })();
+</script>
+
+<footer class="container" th:fragment="foot">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>
+</body>
+</html>

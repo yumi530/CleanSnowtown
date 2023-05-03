@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>수거 관리자 화면</title>
+</head>
+<body>
+<h3>수거 신청 내역</h3>
+<!--<div>-->
+<!--    주문번호 : <span th:text="${order.orderNumber}"-->
+<!--                 th:value="${order.orderNumber}"></span>-->
+<!--</div>-->
+
+<table>
+    <thead>
+    <tr>
+        <td>행정동</td>
+        <td>주문번호</td>
+        <td>주문자</td>
+        <td>연락처</td>
+        <td>배출예정일시</td>
+        <td>수거상태</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order:${list}">
+        <td th:text="${order.districtName}"></td>
+        <td>
+            <a th:text="${order.orderNumber}"
+             th:href="${'detail.do?orderNumber=' + order.orderNumber}">1</a>
+        </td>
+        <td th:text="${order.orderUserName}"></td>
+        </td>
+        <td th:text="${order.orderUserPhone}"></td>
+        </td>
+        <td th:text="${order.disposeDate}"></td>
+        </td>
+        <td th:text="${order.pickupStatus}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout-admin.html :: head('행정동 관리')">
+    <meta charset="UTF-8">
+    <title th:text="${title}">행정동 관리</title>
+</head>
+
+<body th:align="center">
+<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu-admin">
+</nav>
+<!--<header class="py-3 mb-4 border-bottom" th:replace="/fragments/layout.html :: header-admin">-->
+<!--</header>-->
+<div class="p-3 mb-2 bg-light rounded-1">
+    <div class="d-flex justify-content-center">
+        <h3  class="fw-bold">행정동 관리</h3>
+    </div>
+</div>
+
+<div class="list">
+    <div class="d-flex justify-content-center">
+        <form method="post" action="/admin/district/add.do">
+            <input value="" type="text" name="districtName" placeholder="행정동명"
+                   required>
+            <button type="submit">행정동 추가</button>
+        </form>
+    </div>
+
+        <div class="d-flex justify-content-center">
+
+        <table>
+            <thead>
+            <tr th:align="center">
+                <th>번호</th>
+                <th>
+                    행정동명
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="x : ${list}">
+                <td th:text="${x.districtCode}">
+                    <input type="hidden" name="id" th:value="${x.districtCode}"/>
+                    <p th:text="${x.districtCode}">1</p>
+                </td>
+                <td>
+                    <input th:value="${x.districtName}" type="text" name="districtName"/>
+                </td>
+
+                <td>
+                    <div class="inline-div">
+                        <form id="updateForm" method="post"
+                              action="/admin/item/update.do">
+                            <input type="hidden" name="wasteId"
+                                   th:value="${x.districtCode}"/>
+                            <input type="hidden" name="districtName"
+                                   th:value="${x.districtName}"/>
+                            <button type="submit" id="updateButton">수정</button>
+                        </form>
+                    </div>
+
+                    <div class="inline-div">
+                        <form id="deleteForm" method="post"
+                              action="/admin/district/delete.do">
+                            <input type="hidden" name="wasteId"
+                                   th:value="${x.districtCode}"/>
+                            <button type="submit">삭제</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.size(list) < 1}">
+                <td colspan="5">
+                    <p class="nothing">내용이 없습니다.</p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<script>
+    (function () {
+        const updateButton = document.getElementById("updateButton");
+        updateButton.addEventListener("click", function(e) {
+            e.preventDefault();
+
+        })
+    })();
+</script>
+
+<footer class="container" th:fragment="foot">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: head('로그인')">
+    <meta charset="UTF-8">
+    <title th:text="${title}">로그인</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 10px;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+        }
+
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: 10px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
+</head>
+
+<body class="text-center">
+<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu">
+</nav>
+<header class="py-3 mb-4 border-bottom" th:replace="/fragments/layout.html :: header">
+</header>
+
+<main class="form-signin w-25 m-auto">
+    <form method="post" action="/member/login">
+        <h1 class="h3 mb-3 fw-normal">로그인</h1>
+
+        <div class="form-floating">
+            <input type="email" class="form-control" name="username" id="floatingInput" placeholder="name@example.com" />
+            <label for="floatingInput">아이디(Email)</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" />
+            <label for="floatingPassword">비밀번호</label>
+        </div>
+
+<!--        <div class="checkbox mb-3">-->
+<!--            <label>-->
+<!--                <input type="checkbox" value="remember-me" /> 아이디 저장하기-->
+<!--            </label>-->
+<!--        </div>-->
+        <button class=" btn btn-lg btn-primary" type="submit">로그인</button>
+
+    </form>
+    <div>
+        <a th:href="@{/member/find_password.html}">비밀번호 찾기</a>
+    </div>
+
+
+<footer class="container" th:replace="/fragments/layout.html :: foot">
+</footer>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: head('신청완료')">
+    <meta charset="UTF-8">
+    <title th:text="${title}">신청완료</title>
+</head>
+<body>
+<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu">
+</nav>
+<header class="py-3 mb-4 border-bottom" th:replace="/fragments/layout.html :: header">
+</header>
+<div class="p-3 mb-2 bg-light rounded-1">
+    <div class="d-flex justify-content-md-start">
+        <h3  class="fw-bold">배출신청이 완료되었습니다.</h3>
+    </div>
+</div>
+<!--<h1>배출신청이 완료되었습니다.</h1>-->
+<div class="container">
+<div>
+    주문번호 : <span th:text="${order.orderNumber}"
+                    th:value="${order.orderNumber}"></span>
+</div>
+<div>
+    주문자 : <span th:text="${order.orderUserName}"
+                th:value="${order.orderUserName}"></span>
+</div>
+
+<div>
+    연락처 : <span th:text="${order.orderUserPhone}"
+                th:value="${order.orderUserPhone}"></span>
+</div>
+
+<div class="result-info">
+    <h3>주문 결과</h3>
+    <div th:each="result : ${resultList}">
+        <span th:text="${result.wasteName}"></span>
+        <span th:text="${result.count}"></span>
+        <span th:text="${result.price}" class="price"></span>
+        <span th:text="${result.wasteDetail}"></span>
+    </div>
+
+    <div>
+        총 주문 금액 : <span class="price-sum"></span>
+    </div>
+
+</div>
+</div>
+<script>
+    (function () {
+        let resultInfo = document.querySelector(".result-info");
+        let sum = Array.from(resultInfo.querySelectorAll(".price")).map(x => Number(x.innerText)).reduce((x, y) => x + y);
+        document.querySelector(".price-sum").innerText = sum;
+    })();
+</script>
+
+<footer class="container" th:fragment="foot">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>
+</body>
+</html>

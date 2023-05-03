@@ -1,0 +1,36 @@
+spring:
+  mvc:
+  datasource:
+    url: jdbc:mysql://localhost:3307/clean?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: zerobase1234
+  main:
+    allow-circular-references: true
+
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: false
+      show-sql: true
+      format-sql: true
+
+logging:
+  level:
+    org.hibernate.sql: debug
+
+
+mybatis:
+  mapper-locations: mybatis/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+naver-cloud-sms:
+      accessKey: "fslOqPuVnf9otKgXJnjy"
+      secretKey: "S3sENhE2gWhZZtaYVz7vzLHxo7s4FIJUbY0F00Lh"
+      serviceId: "ncp:sms:kr:306637496603:smart_clean"
+      senderPhone: "01055430256"

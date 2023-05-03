@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>주문상세내역</title>
+</head>
+<body>
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <td>행정동</td>-->
+<!--        <td>주문번호</td>-->
+<!--        <td>배출예정일시</td>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="order:${detail}">-->
+<!--        <td th:text="${order.orderUserName}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<table>
+    <tbody>
+    <tr>
+        <th>주문번호</th>
+        <td>
+            <p th:text="${detail.orderNumber}"></p>
+        </td>
+    </tr>
+    <tr>
+        <th>이름</th>
+        <td>
+            <p th:text="${detail.orderUserName}"></p>
+        </td>
+    </tr>
+    <tr>
+        <th>연락처</th>
+        <td>
+            <p th:text="${detail.orderUserPhone}"></p>
+        </td>
+    </tr>
+    <tr>
+        <th>주소</th>
+        <td>
+            <p th:text="${detail.address1}"></p>
+        </td>
+    </tr>
+    <tr>
+        <th>상세주소</th>
+        <td>
+            <p th:text="${detail.address2}"></p>
+        </td>
+    </tr>
+    <tr>
+        <th>행정동</th>
+        <td>
+            <p th:text="${detail.districtName}"></p>
+        </td>
+    </tr>
+    <tr>
+        <th>배출예정일</th>
+        <td>
+            <p th:text="${detail.disposeDate}"></p>
+        </td>
+    </tr>
+<!--    <tr>-->
+<!--        <th>주문내역</th>-->
+<!--        <td>-->
+<!--            <p th:text="${re}"></p>-->
+<!--        </td>-->
+<!--    </tr>-->
+
+    <tr>
+        <th>수거 상태</th>
+        <td>
+            <p><span th:text="${detail.pickupStatus}"></span> </p>
+            <div>
+                <form method="post" action="/admin/pickup/status.do">
+                    <input th:value="${detail.orderNumber}" type="hidden" name="orderNumber"/>
+                    <select name="pickupStatus">
+                        <option value="수거대기">수거대기중</option>
+                        <option value="수거완료">수거완료</option>
+                        <option value="수거반려">수거반려</option>
+                    </select>
+                    <button type="submit">상태변경</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>메세지 전송</th>
+        <td>
+            <div>
+                <form method="get" action="/admin/send.do">
+                    <button type="submit">메세지 전송</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>

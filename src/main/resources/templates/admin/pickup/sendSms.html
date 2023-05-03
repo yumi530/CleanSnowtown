@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메세지 전송</title>
+</head>
+<body>
+<div>
+  <h1>텍스트 메일 보내기</h1>
+
+  <form method="post" action="/admin/sms/send.do">
+    <table>
+      <tr class="form-group">
+        <td>발송할 전화번호</td>
+        <td>
+          <input type="text" class="form-control" name="recipientPhoneNumber" placeholder="전화번호를 입력하세요">
+        </td>
+      </tr>
+      <tr class="form-group">
+        <td>내용</td>
+        <td>
+          <textarea class="form-control" name="content" placeholder="보낼 내용을 입력하세요"> </textarea>
+        </td>
+      </tr>
+    </table>
+    <button class="btn btn-default">발송</button>
+  </form>
+
+</div>
+</body>
+</html>

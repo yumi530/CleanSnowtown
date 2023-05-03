@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="fragments/layout.html :: head('마이 페이지')">
+    <meta charset="UTF-8">
+    <title th:text="${title}">마이페이지</title>
+</head>
+<body>
+<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu">
+</nav>
+<header class="py-3 mb-4 border-bottom" th:replace="/fragments/layout.html :: header">
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="innerDiv col-12">
+            <div class="innerDiv row">
+                <div class="innerDiv col-2" style="background-color: whitesmoke;">
+                    <ul>
+                        <p class="text-secondary">마이 페이지</p>
+                        <hr>
+                        <a href="/member/mypage" class="link-secondary" style="text-decoration:none">회원 정보 조회</a>
+                        <hr>
+                        <a href="/order/detail"class="link-secondary" style="text-decoration:none">배출 신청 조회</a>
+                    </ul>
+                </div>
+                <div class="innerDiv col-10">
+<h4 class="fw-bold" style="margin-bottom: 50px;">회원정보</h4>
+<div style="margin-bottom: 24px;">
+<p class="text-secondary">아이디</p>
+<p class="fw-bold" th:text="${member.userId}"></p>
+</div>
+    <div style="margin-bottom: 24px;">
+        <p class="link-secondary" style="text-decoration: none">이름</p>
+<p class="fw-bold" th:text="${member.name}"></p>
+    </div>
+                    <div style="margin-bottom: 24px";>
+<p class="text-secondary">비밀번호</p>
+<p class="fw-bold">********</p>
+                        <a class="link-info" href="/member/password">비밀번호 변경</a>
+                    </div>
+                    <div style="margin-bottom: 24px;">
+<p class="text-secondary">연락처</p>
+<p class="fw-bold" th:text="${member.phone}"></p>
+                    </div>
+                    <div style="margin-bottom: 24px;">
+<p class="text-secondary">주소</p>
+<p class="fw-bold" th:text="${member.getAddress1()} + ${member.getAddress2()} + ${member.getAddress3()}"></p>
+                    </div>
+<div style="margin-bottom: 24px;">
+    <p class="text-secondary">가입일</p>
+<p class="fw-bold" th:text="${member.createdAt}"></p>
+</div>
+                    <div style="margin-bottom: 24px;">
+<p class="text-secondary">인증여부</p>
+<p class="fw-bold" th:text="${member.verifiedYn}"></p>
+                    </div>
+                    <div style="margin-bottom: 24px;">
+<p class="text-secondary">회원상태</p>
+<p class="fw-bold" th:text="${member.userStatus}"></p>
+                    </div>
+                    <a class="link-dark" href="/member/withdraw">회원 탈퇴</a>
+    </div>
+    </div>
+</div>
+    </div>
+</div>
+<footer class="container" th:fragment="foot">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>
+
+</body>
+</html>

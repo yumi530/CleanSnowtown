@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: head('관리자 회원 관리')">
+    <meta charset="UTF-8">
+    <title th:text="${title}"  >관리자 회원관리</title>
+</head>
+<body>
+<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu-admin">
+</nav>
+<div class="list">
+
+    <div class="search-form">
+<!--        <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>-->
+        <div class="p-3 mb-2 bg-light rounded-1">
+            <div class="d-flex justify-content-center">
+                <h3  class="fw-bold">회원 관리</h3>
+            </div>
+        </div>
+        <form method="get">
+            <select name="searchType">
+                <option value="all">전체</option>
+                <option th:selected="${#strings.equals(param.searchType, 'userId')}" value="userId">아이디</option>
+                <option th:selected="${#strings.equals(param.searchType, 'userName')}" value="userName">이름</option>
+                <option th:selected="${#strings.equals(param.searchType, 'phone')}" value="phone">연락처</option>
+            </select>
+            <input th:value="${param.searchValue}" type="sear" name="searchValue" placeholder="검색어 입력"/>
+            <button type="submit">검색</button>
+        </form>
+    </div>
+    <div class="container">
+        <table class="table">
+        <thead class="text-center">
+        <tr>
+            <th>NO</th>
+            <th>
+                아이디(이메일)
+            </th>
+            <th>
+                이름
+            </th>
+            <th>
+                연락처
+            </th>
+            <th>
+                이메일 인증 여부
+            </th>
+            <th>
+                가입일
+            </th>
+            <th>
+                관리자여부
+            </th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        <tr th:each="x : ${list}">
+            <td th:text="${x.seq}">1</td>
+            <td>
+                <a th:text="${x.userId}"
+                   th:href="${'detail.do?userId=' + x.userId}">
+                    satcop@naver.com</a>
+            </td>
+            <td th:text="${x.name}">홍길동</td>
+            <td th:text="${x.phone}">010-1111-2222</td>
+            <td>
+                <p th:if="${x.verifiedYn}">Y</p>
+                <p th:if="${x.verifiedYn eq false}">N</p>
+            </td>
+            <td>
+                <p th:text="${x.createdAt}">2021.01.01</p>
+            </td>
+            <td>
+                <p th:if="${x.adminYn}">Y</p>
+                <p th:if="${x.adminYn eq false}">N</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
