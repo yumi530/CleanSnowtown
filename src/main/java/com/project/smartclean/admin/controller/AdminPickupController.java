@@ -1,6 +1,6 @@
 package com.project.smartclean.admin.controller;
 
-import com.project.smartclean.order.entity.UserOrder;
+import com.project.smartclean.order.entity.Order;
 import com.project.smartclean.order.model.OrderForm;
 import com.project.smartclean.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +18,11 @@ public class AdminPickupController {
     private final OrderService orderService;
     @GetMapping("/list.do")
     public String pickupList(Model model, OrderForm parameter) {
-        List<UserOrder> orderList = orderService.wastesOrder(parameter);
+        List<Order> orderList = orderService.wastesOrder(parameter);
         model.addAttribute("list",orderList);
         return "admin/pickup/list";
     }
+
 //    @GetMapping("/detail")
 //    public String pickupDetail(Model model,HttpServletRequest httpServletRequest) {
 ////        Optional<UserOrder> order = orderService.orderDetail(orderNumber);

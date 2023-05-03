@@ -13,15 +13,15 @@
 <h1>주문 상세 페이지</h1>
             <p>주문내역 / 취소내역</p>
             주문번호
-            <div th:text="${userOrder.orderNumber}"></div>
+            <div th:text="${order.orderNumber}"></div>
             주문일시
-            <div th:text="${userOrder.orderDate}"></div>
+            <div th:text="${order.orderDate}"></div>
             주문내역
-            <div th:text="${userOrder.wasteName}"></div>
+            <div th:text="${order.wasteName}"></div>
              배출예정일시
-            <div th:text="${userOrder.disposeDate}"></div>
+            <div th:text="${order.disposeDate}"></div>
             수거상태
-            <div th:text="${userOrder.pickupStatus}"></div>
+            <div th:text="${order.pickupStatus}"></div>
     </div>
     </div>
 </div>

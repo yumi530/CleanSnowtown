@@ -1,21 +1,19 @@
 package com.project.smartclean.member.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.smartclean.order.entity.UserOrder;
+import com.project.smartclean.order.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +22,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 public class Member implements MemberCode {
     @Id
-//    @GeneratedValue(strategy = IDENTITY)
     private String userId;
 
     private String name;
@@ -50,7 +47,7 @@ public class Member implements MemberCode {
     private int seq;
 
     @OneToMany(mappedBy = "member")
-    private List<UserOrder> userOrders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
 
 

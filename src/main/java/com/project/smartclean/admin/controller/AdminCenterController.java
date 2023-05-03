@@ -3,7 +3,7 @@ package com.project.smartclean.admin.controller;
 import com.project.smartclean.member.entity.Member;
 import com.project.smartclean.order.dto.WasteDto;
 import com.project.smartclean.order.entity.Item;
-import com.project.smartclean.order.entity.UserOrder;
+import com.project.smartclean.order.entity.Order;
 import com.project.smartclean.order.model.OrderForm;
 import com.project.smartclean.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -59,8 +59,8 @@ public class AdminCenterController {
 
     @PostMapping("/waste.do")
     public String orderWaste(Model model, OrderForm parameter, Member member, Item... items) {
-        UserOrder userOrderWaste = orderService.order(parameter);
-        model.addAttribute("order", userOrderWaste);
+        Order orderWaste = orderService.order(parameter);
+        model.addAttribute("order", orderWaste);
         model.addAttribute("resultList", parameter.getResultList());
 //        parameter.getResultList();
         return "order/confirm";

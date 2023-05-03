@@ -2,7 +2,7 @@ package com.project.smartclean.order.controller;
 
 import com.project.smartclean.order.dto.WasteDto;
 import com.project.smartclean.order.entity.Item;
-import com.project.smartclean.order.entity.UserOrder;
+import com.project.smartclean.order.entity.Order;
 import com.project.smartclean.order.model.OrderForm;
 import com.project.smartclean.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -39,17 +39,8 @@ public class OrderController {
 
     @GetMapping("/item")
     public String getAllList(Model model, Item item) {
-//        if (search.getSearchKeyword() == null)
-//        search.setSearchKeyword("");
-//        Page<Item> getWasteList = orderService.getWasteList(search);
-//
-//        UserOrderDto userOrderDto = orderService.detail(user.getUsername());
-//        model.addAttribute("userOrder", userOrderDto);
-//
-//        model.addAttribute("list", getWasteList);
         List<WasteDto> list = orderService.wasteFrontList(item);
         model.addAttribute("list", list);
-
 
         return "order/item";
     }
@@ -57,9 +48,9 @@ public class OrderController {
 
     @PostMapping("/item")
     public String orderWaste(Model model, OrderForm parameter) {
-        UserOrder userOrderWaste = orderService.order(parameter);
+        Order orderWaste = orderService.order(parameter);
 
-        model.addAttribute("order", userOrderWaste);
+        model.addAttribute("order", orderWaste);
         model.addAttribute("resultList", parameter.getResultList());
 //        parameter.getResultList();
         return "order/confirm";
@@ -71,7 +62,7 @@ public class OrderController {
     }
 //이거살려
 //    @GetMapping("/detail")
-//    public String orderDetail(@AuthenticationPrincipal User user, Model model) {
+//    public String orderDetail(@AuthenticationPrincipal Order.java user, Model model) {
 //        UserOrderDto userOrderDto = orderService.detail(user.getUsername());
 //        model.addAttribute("userOrder", userOrderDto);
 //        return "order/detail";
