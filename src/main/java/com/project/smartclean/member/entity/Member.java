@@ -24,7 +24,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 public class Member implements MemberCode {
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+//    @GeneratedValue(strategy = IDENTITY)
     private String userId;
 
     private String name;

@@ -39,7 +39,7 @@ public class Board {
     @JoinColumn(name = "user_id")
     private Member member;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "comment")
     @OrderBy("commentId asc")
     private List<Comment> comments;
 
