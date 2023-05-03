@@ -33,7 +33,7 @@ public class UserOrder {
     private Long districtCode;
     private String districtName;
     @OneToMany(mappedBy = "userOrder")
-    private List<Item> item = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
     private String pickupStatus;
 
     @ManyToOne

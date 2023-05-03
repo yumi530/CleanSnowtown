@@ -28,9 +28,9 @@ public class Item {
 //    @OneToMany(mappedBy = "userOrder", cascade = CascadeType.ALL)
 //    private List<Item> items = new ArrayList<>();
 //살려줌
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private UserOrder userOrder;
+//    @ManyToOne
+//    @JoinColumn(name = "order_id")
+//    private UserOrder userOrder;
 
 
 //@OneToOne

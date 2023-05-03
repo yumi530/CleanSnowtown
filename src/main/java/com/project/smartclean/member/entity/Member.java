@@ -49,9 +49,9 @@ public class Member implements MemberCode {
 
     private int seq;
 
-//    @OneToMany(mappedBy = "member")
-//    private List<UserOrder> userOrders = new ArrayList<>();
-//
+    @OneToMany(mappedBy = "member")
+    private List<UserOrder> userOrders = new ArrayList<>();
+
 
 
 
