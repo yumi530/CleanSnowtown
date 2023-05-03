@@ -29,11 +29,19 @@ public class Board {
     private LocalDateTime writeDate;
     private LocalDateTime updateDate;
  //  @GeneratedValue(strategy = IDENTITY)
-    private String writeName;
-    private String userId;
+   private String writeName;
+    //private String userId;
 
     private String filename;
     private String filepath;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Member member;
+
+    @OneToMany(mappedBy = "board")
+    @OrderBy("commentId asc")
+    private List<Comment> comments;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id")

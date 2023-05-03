@@ -21,6 +21,7 @@ import java.util.List;
 @DynamicUpdate
 public class UserOrder {
     @Id
+    @GeneratedValue
     @Column(name = "order_id")
     private String orderId;
     private String orderUserName;
@@ -32,11 +33,11 @@ public class UserOrder {
     private LocalDateTime orderDate;
     private Long districtCode;
     private String districtName;
-    @OneToMany(mappedBy = "userOrder")
+    @OneToMany(mappedBy = "userOrder", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
     private String pickupStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Member member;
 
