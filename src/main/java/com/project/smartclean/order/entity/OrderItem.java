@@ -5,28 +5,26 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "order_item")
+//@Table(name = "order_item")
 @Data
 public class OrderItem {
     @Id
     @GeneratedValue
     @Column(name = "order_item_id")
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
-
-    private Long price;
+    private Long orderItemId;
+    @Column(name = "order_id")
+    private String orderId;
+    @Column(name = "item_id")
+    private Long itemId;
     private int count;
+    private Long price;
 }

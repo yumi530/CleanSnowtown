@@ -41,15 +41,12 @@ public class OrderController {
     public String getAllList(Model model, Item item) {
         List<WasteDto> list = orderService.wasteFrontList(item);
         model.addAttribute("list", list);
-
         return "order/item";
     }
-
 
     @PostMapping("/item")
     public String orderWaste(Model model, OrderForm parameter) {
         Order orderWaste = orderService.order(parameter);
-
         model.addAttribute("order", orderWaste);
         model.addAttribute("resultList", parameter.getResultList());
 //        parameter.getResultList();
@@ -60,12 +57,5 @@ public class OrderController {
     public String wasteComplete() {
         return "order/complete";
     }
-//이거살려
-//    @GetMapping("/detail")
-//    public String orderDetail(@AuthenticationPrincipal Order.java user, Model model) {
-//        UserOrderDto userOrderDto = orderService.detail(user.getUsername());
-//        model.addAttribute("userOrder", userOrderDto);
-//        return "order/detail";
-//    }
 
 }

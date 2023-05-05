@@ -2,17 +2,23 @@ package com.project.smartclean.member.service;
 
 import com.project.smartclean.admin.dto.MemberDto;
 import com.project.smartclean.admin.model.MemberParam;
+import com.project.smartclean.board.entity.QBoard;
 import com.project.smartclean.common.utils.PasswordUtils;
 import com.project.smartclean.components.MailComponents;
 import com.project.smartclean.exception.MemberNotVerifiedException;
 import com.project.smartclean.exception.MemberStopUserException;
 import com.project.smartclean.member.entity.Member;
 import com.project.smartclean.member.entity.MemberCode;
+import com.project.smartclean.member.entity.QMember;
+import com.project.smartclean.member.entity.Search;
 import com.project.smartclean.member.model.ResetPasswordInput;
 import com.project.smartclean.member.model.ServiceResult;
 import com.project.smartclean.member.model.SignUpForm;
 import com.project.smartclean.member.repository.MemberRepository;
+import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -273,6 +279,22 @@ public class MemberServiceImpl implements MemberService {
 
         return new ServiceResult(true);
     }
+
+    @Override
+    public Page<Member> list(Search search, Pageable pageable) {
+        BooleanBuilder builder = new BooleanBuilder();
+        QMember qMember = QMember.member;
+        if (search.getSearchCondition().equals("userId")) {
+            builder.and(qMember.userId.like("%" + search.getSearchKeyword() + "%"));
+        } else if (search.getSearchCondition().equals("name")) {
+            builder.and(qMember.name.like("%" + search.getSearchKeyword() + "%"));
+        }else if (search.getSearchCondition().equals("phone")) {
+            builder.and(qMember.phone.like("%" + search.getSearchKeyword() + "%"));
+        }
+        return memberRepository.findAll(builder, pageable);
+    }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

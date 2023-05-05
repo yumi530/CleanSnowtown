@@ -3,9 +3,15 @@ package com.project.smartclean.admin.controller;
 import com.project.smartclean.admin.dto.MemberDto;
 import com.project.smartclean.admin.model.MemberInput;
 import com.project.smartclean.admin.model.MemberParam;
+import com.project.smartclean.board.entity.Board;
 import com.project.smartclean.member.entity.Member;
+import com.project.smartclean.member.entity.Search;
 import com.project.smartclean.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,21 +27,25 @@ public class AdminMemberController {
 
 
     @GetMapping("/admin/member/list.do")
-    public String list(Model model, MemberParam parameter) {
-//        parameter.init();
-        List<Member> members = memberService.list(parameter);
-//
-//        long totalCount = 0;
-//        if (members != null && members.size() > 0) {
-//            totalCount = members.get(0).getTotalCount();
-//        }
-//        String queryString = parameter.getQueryString();
-//        PageUtil pageUtil = new PageUtil(totalCount, parameter.getPageSize(), parameter.getPageIndex(), queryString);
-//        //추후 수정 필요
-//
-//        model.addAttribute("totalCount", totalCount);
-//        model.addAttribute("pager", pageUtil.pager());
-        model.addAttribute("list", members);
+    public String list(Model model, @PageableDefault(page =  0 , size = 10, sort ="createdAt", direction = Sort.Direction.DESC) Pageable pageable, Search search) {
+
+        //List<Member> members = memberService.list(parameter);
+//        Page<Member> members = memberService.list(parameter);
+
+            if (search.getSearchCondition() == null)
+                search.setSearchCondition("userId");
+            if (search.getSearchKeyword() == null)
+                search.setSearchKeyword("");
+        Page<Member> list = memberService.list(search, pageable);
+
+            int nowPage = list.getPageable().getPageNumber() + 1;
+            int startPage = Math.max(nowPage - 4 , 1);
+            int endPage = Math.min(nowPage + 5, list.getTotalPages());
+
+            model.addAttribute("list", list);
+            model.addAttribute("nowPage", nowPage);
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
         return "admin/member/list";
     }
 

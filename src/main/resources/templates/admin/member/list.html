@@ -9,22 +9,22 @@
 </nav>
 <div class="list">
 
-    <div class="search-form">
+
 <!--        <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>-->
         <div class="p-3 mb-2 bg-light rounded-1">
             <div class="d-flex justify-content-center">
                 <h3  class="fw-bold">회원 관리</h3>
             </div>
         </div>
-        <form method="get">
-            <select name="searchType">
-                <option value="all">전체</option>
-                <option th:selected="${#strings.equals(param.searchType, 'userId')}" value="userId">아이디</option>
-                <option th:selected="${#strings.equals(param.searchType, 'userName')}" value="userName">이름</option>
-                <option th:selected="${#strings.equals(param.searchType, 'phone')}" value="phone">연락처</option>
+    <div class="d-flex justify-content-end">
+        <form th:action="@{/admin/member/list.do}" method="get">
+            <select name="searchCondition">
+                <option value="userId">아이디</option>
+                <option value="name">이름</option>
+                <option value="phone">연락처</option>
             </select>
-            <input th:value="${param.searchValue}" type="sear" name="searchValue" placeholder="검색어 입력"/>
-            <button type="submit">검색</button>
+            <input name="searchKeyword" type="text"/>
+            <button type="submit" class="btn btn-secondary">검색</button>
         </form>
     </div>
     <div class="container">
@@ -76,7 +76,23 @@
         </tr>
         </tbody>
     </table>
-
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/admin/member/list.do(page=0)}">
+                    <span>&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+                <strong th:if="${page == nowPage}" th:text="${page}" style="color: rebeccapurple"></strong>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/admin/member/list.do(page = ${endPage - 1})}" >
+                    <span>&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

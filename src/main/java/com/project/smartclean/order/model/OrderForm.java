@@ -1,6 +1,5 @@
 package com.project.smartclean.order.model;
 
-import com.project.smartclean.member.entity.Member;
 import com.project.smartclean.order.dto.ResultDto;
 import com.project.smartclean.order.entity.Item;
 import lombok.AllArgsConstructor;
@@ -28,10 +27,10 @@ public class OrderForm {
     private String orderUserName;
     private String districtName;
     private String pickupStatus;
-    private Member userId;
-//    private String itemDetail;
+    private String userId;
+    //    private String itemDetail;
     private List<Item> itemList;
-//    private String itemName;
+    //    private String itemName;
     private List<ResultDto> resultList;
 
 }

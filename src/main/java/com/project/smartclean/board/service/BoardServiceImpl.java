@@ -1,8 +1,13 @@
 package com.project.smartclean.board.service;
 
 import com.project.smartclean.board.entity.Board;
+import com.project.smartclean.board.entity.QBoard;
+import com.project.smartclean.board.entity.Search;
 import com.project.smartclean.board.repository.BoardRepository;
+import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,10 +23,6 @@ import java.util.UUID;
 @Transactional
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
-    @Override
-    public List<Board> boardList(Board board) {
-        return boardRepository.findAll();
-    }
 
     @Override
     public void insertBoard(Board board, MultipartFile file) throws IOException {
@@ -76,5 +77,19 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void updateView(Long boardNo) {
         boardRepository.updateViews(boardNo);
+    }
+
+    @Override
+    public Page<Board> getBoardList(Search search, Pageable pageable) {
+            BooleanBuilder builder = new BooleanBuilder();
+    QBoard qBoard = QBoard.board;
+    if (search.getSearchCondition().equals("title")) {
+        builder.and(qBoard.title.like("%" + search.getSearchKeyword() + "%"));
+    } else if (search.getSearchCondition().equals("writeName")) {
+        builder.and(qBoard.writeName.like("%" + search.getSearchKeyword() + "%"));
+    }else if (search.getSearchCondition().equals("contents")) {
+        builder.and(qBoard.contents.like("%" + search.getSearchKeyword() + "%"));
+    }
+        return boardRepository.findAll(builder, pageable);
     }
 }

@@ -17,9 +17,9 @@
 <div class="list">
     <div class="d-flex justify-content-center">
         <form method="post" action="/admin/item/add.do">
-            <input value="" type="text" name="wasteName" placeholder="폐기물명"
+            <input value="" type="text" name="itemName" placeholder="폐기물명"
                    required>
-            <input value="" type="text" name="wasteDetail" placeholder="규격">
+            <input value="" type="text" name="itemDetail" placeholder="규격">
             <input type="text" name="price" placeholder="가격" required>
             <!--            <input type="text" name="sortValue" placeholder="순서" required>-->
             <button type="submit">품목 추가</button>
@@ -47,16 +47,16 @@
         </thead>
         <tbody>
         <tr th:each="x : ${list}">
-            <td th:text="${x.wasteId}">
-                <input type="hidden" name="id" th:value="${x.wasteId}"/>
-                <p th:text="${x.wasteId}">1</p>
+            <td th:text="${x.itemId}">
+                <input type="hidden" name="id" th:value="${x.itemId}"/>
+                <p th:text="${x.itemId}">1</p>
             </td>
             <td>
-                <input th:value="${x.wasteName}" type="text" name="wasteName"/>
+                <input th:value="${x.itemName}" type="text" name="itemName"/>
             </td>
             <td>
-                <input th:value="${x.wasteDetail}" type="text"
-                       name="wasteDetail"/>
+                <input th:value="${x.itemDetail}" type="text"
+                       name="itemDetail"/>
             </td>
             <td>
                 <input th:value="${x.price}" type="text" name="price"/>
@@ -65,12 +65,12 @@
                 <div class="inline-div">
                     <form id="updateForm" method="post"
                           action="/admin/item/update.do">
-                        <input type="hidden" name="wasteId"
-                               th:value="${x.wasteId}"/>
-                        <input type="hidden" name="wasteName"
-                               th:value="${x.wasteName}"/>
-                        <input type="hidden" name="wasteDetail"
-                               th:value="${x.wasteDetail}"/>
+                        <input type="hidden" name="itemId"
+                               th:value="${x.itemId}"/>
+                        <input type="hidden" name="itemName"
+                               th:value="${x.itemName}"/>
+                        <input type="hidden" name="itemDetail"
+                               th:value="${x.itemDetail}"/>
                         <input type="hidden" name="price"
                                th:value="${x.price}"/>
                         <button type="submit" id="updateButton">수정</button>
@@ -80,8 +80,8 @@
                 <div class="inline-div">
                     <form id="deleteForm" method="post"
                           action="/admin/item/delete.do">
-                        <input type="hidden" name="wasteId"
-                               th:value="${x.wasteId}"/>
+                        <input type="hidden" name="itemId"
+                               th:value="${x.itemId}"/>
                         <button type="submit">삭제</button>
                     </form>
                 </div>

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.GenerationType.AUTO;
@@ -39,9 +40,9 @@ public class Board {
     @JoinColumn(name = "user_id")
     private Member member;
 
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "comment" ,cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("commentId asc")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id")

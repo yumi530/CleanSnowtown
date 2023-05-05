@@ -17,8 +17,8 @@ import java.util.List;
 public class AdminPickupController {
     private final OrderService orderService;
     @GetMapping("/list.do")
-    public String pickupList(Model model, OrderForm parameter) {
-        List<Order> orderList = orderService.wastesOrder(parameter);
+    public String pickupList(Model model) {
+        List<Order> orderList = orderService.getOrderList();
         model.addAttribute("list",orderList);
         return "admin/pickup/list";
     }

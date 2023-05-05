@@ -13,7 +13,7 @@ public interface AdminCenterService  {
     List<WasteDto> wasteFrontList(Item item);
     List<Order> wastesOrder(OrderForm parameter);
 
-    OrderDto userOrderDetail(String orderNumber);
+    OrderDto orderDetail(String orderId);
 
-    boolean pickupStatus(String orderNumber, String pickupStatus);
+    boolean pickupStatus(String orderId, String pickupStatus);
 }

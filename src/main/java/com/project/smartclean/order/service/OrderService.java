@@ -13,11 +13,13 @@ public interface OrderService {
 
     List<WasteDto> wasteFrontList(Item item);
 
-    List<Order> wastesOrder(OrderForm parameter);
+    List<Order> wastesOrder();
 
     OrderDto orderDetail(String orderId);
 
     boolean pickupStatus(String orderNumber, String pickupStatus);
 
     OrderDto detail(String userId);
+
+    List<Order> getOrderList();
 }

@@ -14,25 +14,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class OrderDto {
-    private String orderNumber;
-
+    private String orderId;
     private String orderUserName;
-    private String orderUserId;
+    private String orderUserPhone;
+    private String userId;
     private String address1;
     private String address2;
-    private String orderUserPhone;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime disposeDate;
     private LocalDateTime orderDate;
     private Long districtCode;
     private String districtName;
-    private Long itemId;
-    private String itemName;
-
     private String pickupStatus;
-
-    private String itemDetail;
-
 
     public static OrderDto of(Order order) {
 
@@ -45,7 +38,6 @@ public class OrderDto {
                 .address1(order.getAddress1())
                 .address2(order.getAddress2())
                 .orderUserPhone(order.getOrderUserPhone())
-//                .itemId(userOrder.getItems().get())
                 .pickupStatus(order.getPickupStatus())
                 .build();
     }

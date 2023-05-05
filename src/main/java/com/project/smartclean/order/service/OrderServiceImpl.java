@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = Order.builder()
                 .orderId(orderId)
-                .member(parameter.getUserId())
+                .userId(parameter.getUserId())
                 .orderUserName(parameter.getOrderUserName())
                 .orderUserPhone(parameter.getOrderUserPhone())
                 .address1(parameter.getAddress1())
@@ -50,7 +50,12 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public List<Order> wastesOrder(OrderForm parameter) {
+    public List<Order> wastesOrder() {
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public List<Order> getOrderList() {
         return orderRepository.findAll();
     }
 

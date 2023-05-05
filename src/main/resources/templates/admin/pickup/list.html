@@ -26,8 +26,8 @@
     <tr th:each="order:${list}">
         <td th:text="${order.districtName}"></td>
         <td>
-            <a th:text="${order.orderNumber}"
-             th:href="${'detail.do?orderNumber=' + order.orderNumber}">1</a>
+            <a th:text="${order.orderId}"
+             th:href="${'detail.do?orderId=' + order.orderId}">1</a>
         </td>
         <td th:text="${order.orderUserName}"></td>
         </td>

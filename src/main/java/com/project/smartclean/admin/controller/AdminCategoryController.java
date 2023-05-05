@@ -17,29 +17,29 @@ public class AdminCategoryController {
 
     private final AdminCategoryService categoryService;
 
-    @GetMapping("/admin/waste/list.do")
+    @GetMapping("/admin/item/list.do")
     public String list(Model model, WasteDto parameter) {
         List<WasteDto> list = categoryService.list();
         model.addAttribute("list", list);
-        return "admin/waste/list";
+        return "admin/item/list";
     }
 
-    @PostMapping("/admin/waste/add.do")
+    @PostMapping("/admin/item/add.do")
     public String addList(WasteDto parameter) {
         categoryService.addWaste(parameter);
-        return "redirect:/admin/waste/list.do";
+        return "redirect:/admin/item/list.do";
     }
 
-    @PostMapping("/admin/waste/delete.do")
+    @PostMapping("/admin/item/delete.do")
     public String deleteWaste(WasteDto parameter) {
         categoryService.deleteWaste(parameter);
-        return "redirect:/admin/waste/list.do";
+        return "redirect:/admin/item/list.do";
     }
 
-    @PostMapping("/admin/waste/update.do")
+    @PostMapping("/admin/item/update.do")
     public String updateWaste(WasteDto parameter) {
         categoryService.updateWaste(parameter);
-        return "redirect:/admin/waste/list.do";
+        return "redirect:/admin/item/list.do";
     }
 
 
@@ -63,13 +63,13 @@ public class AdminCategoryController {
     @PostMapping("/admin/district/delete.do")
     public String deleteDistrict(Long districtCode) {
         categoryService.deleteDistrict(districtCode);
-        return "redirect:/admin/waste/list.do";
+        return "redirect:/admin/district/list.do";
     }
 
     @PostMapping("/admin/district/update.do")
     public String updateDistrict(DistrictsDto parameter) {
         categoryService.updateDistrict(parameter);
-        return "redirect:/admin/waste/list.do";
+        return "redirect:/admin/district/list.do";
     }
 
 
