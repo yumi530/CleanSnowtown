@@ -40,9 +40,9 @@ public class Board {
     @JoinColumn(name = "user_id")
     private Member member;
 
-    @OneToMany(mappedBy = "comment" ,cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "board" ,cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     @OrderBy("commentId asc")
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id")

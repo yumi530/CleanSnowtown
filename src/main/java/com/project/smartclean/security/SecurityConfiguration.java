@@ -49,14 +49,14 @@ public class SecurityConfiguration {
                 .antMatchers("/", "/member/register","member/verify","board/list")
                 .permitAll();
 
-        http
-                .authorizeRequests()
-                .antMatchers("/admin/**")
-                .hasAuthority("ROLE_ADMIN");
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/admin/**")
+//                .hasAuthority("ROLE_ADMIN");
 
         http
                 .authorizeRequests()
-                .antMatchers("/order/**","/board/**")
+                .antMatchers("/order/**","/board/**","/admin/**")
                 .hasAuthority("ROLE_USER");
 
 

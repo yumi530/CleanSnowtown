@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//@Configuration
-//public class QueryDslConfiguration {
-//    @PersistenceContext
-//    private EntityManager entityManager;
-//
-//    @Bean
-//    public JPAQueryFactory jpaQueryFactory() {
-//        return new JPAQueryFactory(entityManager);
-//    }
-//}
+@Configuration
+public class QueryDslConfiguration {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Bean
+    public JPAQueryFactory jpaQueryFactory() {
+        return new JPAQueryFactory(entityManager);
+    }
+}

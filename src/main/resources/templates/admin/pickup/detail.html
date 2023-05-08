@@ -24,7 +24,7 @@
     <tr>
         <th>주문번호</th>
         <td>
-            <p th:text="${detail.orderNumber}"></p>
+            <p th:text="${detail.orderId}"></p>
         </td>
     </tr>
     <tr>
@@ -76,7 +76,7 @@
             <p><span th:text="${detail.pickupStatus}"></span> </p>
             <div>
                 <form method="post" action="/admin/pickup/status.do">
-                    <input th:value="${detail.orderNumber}" type="hidden" name="orderNumber"/>
+                    <input th:value="${detail.orderId}" type="hidden" name="orderId"/>
                     <select name="pickupStatus">
                         <option value="수거대기">수거대기중</option>
                         <option value="수거완료">수거완료</option>

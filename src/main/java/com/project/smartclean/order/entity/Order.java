@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -21,7 +18,7 @@ import java.time.LocalDateTime;
 @Table(name = "orders")
 @DynamicUpdate
 public class Order {
-    @Id
+    @Id @GeneratedValue
     private String orderId;
     private String orderUserPhone;
     private String orderUserName;
@@ -39,5 +36,7 @@ public class Order {
 
     //    @Enumerated(EnumType.STRING)
     private String orderStatus;
+
+
 
 }

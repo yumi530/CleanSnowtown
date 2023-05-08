@@ -7,6 +7,11 @@ spring:
     password: zerobase1234
   main:
     allow-circular-references: true
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    cache: false
 
 
   jpa:

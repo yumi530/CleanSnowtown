@@ -30,6 +30,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     public void addWaste(WasteDto parameter) {
         Item newItem = Item.builder()
                 .itemId(parameter.getItemId())
+                .category(parameter.getCategory())
                 .itemName(parameter.getItemName())
                 .itemDetail(parameter.getItemDetail())
                 .price(parameter.getPrice())
@@ -49,6 +50,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
         Optional<Item> optionalItem = itemRepository.findById(parameter.getItemId());
         if (optionalItem.isPresent()) {
             Item item = optionalItem.get();
+            item.setCategory(parameter.getCategory());
             item.setItemName(parameter.getItemName());
             item.setItemDetail(parameter.getItemDetail());
             item.setPrice(parameter.getPrice());

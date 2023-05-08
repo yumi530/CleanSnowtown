@@ -1,127 +1,175 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+>
 <head th:replace="fragments/layout.html :: head('배출신청')">
     <meta charset="UTF-8">
     <title>대형 폐기물 배출 신청</title>
 </head>
 
 <body>
-    <nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu">
-    </nav>
-    <header class="py-3 mb-4 border-bottom" th:replace="/fragments/layout.html :: header">
-    </header>
+<nav class="py-2 bg-light border-bottom"
+     th:replace="/fragments/layout.html :: menu">
+</nav>
+<header class="py-3 mb-4 border-bottom"
+        th:replace="/fragments/layout.html :: header">
+</header>
 
-    <div class="list">
-<!--        <div class="search">-->
-<!--            <form method="get">-->
-<!--    &lt;!&ndash;            <input name="searchKeyword" type="text" />&ndash;&gt;-->
-<!--                <input th:value="${param.searchValue}" type="sear" name="searchKeyword" placeholder="검색어 입력"/>-->
-<!--                <button type="submit">검색</button>-->
-<!--            </form>-->
+<div class="list container">
+    <h3>배출 가능 품목</h3>
+    <!--        <div class="search">-->
+    <!--            <form method="get">-->
+    <!--    &lt;!&ndash;            <input name="searchKeyword" type="text" />&ndash;&gt;-->
+    <!--                <input th:value="${param.searchValue}" type="sear" name="searchKeyword" placeholder="검색어 입력"/>-->
+    <!--                <button type="submit">검색</button>-->
+    <!--            </form>-->
 
-            <table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>카테고리</th>
+            <th>
+                폐기물명
+            </th>
+            <th>
+                가격
+            </th>
+            <th>
+                규격
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="x : ${list}">
+            <td th:text="${x.itemId}"></td>
+            <td th:text="${x.category}"></td>
+            <td th:text="${x.itemName}"></td>
+            <td th:text="${x.price}"></td>
+            <td th:text="${x.itemDetail}"></td>
+            <td>
+                <label class="checkbox-inline">
+                    <button type="button" class="btn btn-light select-button"
+                            th:data-id="${x.itemId}"
+                            th:data-category="${x.category}"
+                            th:data-name="${x.itemName}"
+                            th:data-detail=" ${x.itemDetail}"
+                            th:data-price="${x.price}">
+                        추가
+                    </button>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+<div class="order container">
+    <form id="orderForm" class="form-control" method="post">
+        <h3>주문 정보</h3>
+        <div class="row">
+            <div class="mb-2 col-6">
+                <label for="orderUserName" class="form-label">이름</label>
+                <input type="text" class="form-control" id="orderUserName"
+                       name="orderUserName" placeholder="XXX" required>
+            </div>
+
+            <div class="mb-2 col-6">
+                <label for="orderUserPhone" class="form-label">전화번호</label>
+                <input type="tel" class="form-control" id="orderUserPhone"
+                       name="orderUserPhone" placeholder="전화번호" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mb-2 col-4">
+                <label for="postcode" class="form-label">우편번호</label>
+                <div class="input-group">
+<!--                    <input type="text" id="postcode" placeholder="우편번호">-->
+<!--                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>-->
+                    <input type="text" id="postcode" name="postcode" class="form-control"
+                           placeholder="우편번호" aria-label="우편번호=="
+                           aria-describedby="button-addon-postcode" >
+                    <button class="btn btn-secondary" type="button"
+                            id="button-addon-postcode"
+                            onclick="execDaumPostcode()">우편번호 찾기
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-2 col-4">
+                <label for="address1" class="form-label">주소</label>
+                <input type="text" class="form-control" id="address1"
+                       name="address1" placeholder="주소" required>
+            </div>
+
+            <div class="mb-2 col-4">
+                <label for="address2" class="form-label">상세주소</label>
+                <input type="text" class="form-control" id="address2"
+                       name="address2" placeholder="상세주소" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mb-2 col-6">
+                <label for="disposeDate" class="form-label">배출예정시간</label>
+                <input type="datetime-local" class="form-control" id="disposeDate"
+                       name="disposeDatetime" placeholder="배출예정시간" required>
+            </div>
+
+            <div class="mb-2 col-6">
+                <label for="districtName" class="form-label">배출지역</label>
+                <select id="districtName" class="form-select" name="districtName">
+                    <option value="행정동" selected>행정동</option>
+                    <option value="스노우1동">스노우1동</option>
+                    <option value="스노우2동">스노우2동</option>
+                    <option value="스노우3동">스노우3동</option>
+                    <option value="스노우4동">스노우4동</option>
+<!--                    <option value="월계1동">월계1동</option>-->
+<!--                    <option value="월계2동">월계2동</option>-->
+<!--                    <option value="월계3동">월계3동</option>-->
+<!--                    <option value="공릉1동">공릉1동</option>-->
+<!--                    <option value="공릉2동">공릉2동</option>-->
+<!--                    <option value="하계1동">하계1동</option>-->
+<!--                    <option value="하계2동">하계2동</option>-->
+<!--                    <option value="중계본동">중계본동</option>-->
+<!--                    <option value="중계1동">중계1동</option>-->
+<!--                    <option value="중계2.3동">중계2.3동</option>-->
+<!--                    <option value="중계4동">중계4동</option>-->
+<!--                    <option value="상계1동">상계1동</option>-->
+<!--                    <option value="상계2동">상계2동</option>-->
+<!--                    <option value="상계3.4동">상계3.4동</option>-->
+<!--                    <option value="상계5동">상계5동</option>-->
+<!--                    <option value="상계6.7동">상계6.7동</option>-->
+<!--                    <option value="상계8동">상계8동</option>-->
+<!--                    <option value="상계9동">상계9동</option>-->
+<!--                    <option value="상계10동">상계10동</option>-->
+                </select>
+            </div>
+        </div>
+
+        <div class="container result">
+            <h4>배출 목록</h4>
+            <table id="resultTable" class="table">
                 <thead>
                 <tr>
-                    <th>번호</th>
-                    <th>
-                        폐기물명
-                    </th>
-                    <th>
-                        가격
-                    </th>
-                    <th>
-                        규격
-                    </th>
-                    <th></th>
+                    <th>폐기물명</th>
+                    <th>규격</th>
+                    <th>수량</th>
+                    <th>가격</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="x : ${list}">
-                    <td th:text="${x.itemId}"></td>
-                    <td th:text="${x.itemName}"></td>
-                    <td th:text="${x.price}"></td>
-                    <td th:text="${x.itemDetail}"></td>
-                    <td>
-                        <label class="checkbox-inline">
-                            <button type="button" class="select-button"
-                                    th:data-id="${x.itemId}"
-                                    th:data-name="${x.itemName}"
-                                    th:data-detail=" ${x.itemDetail}"
-                                    th:data-price="${x.price}">
-                                선택
-                            </button>
-                        </label>
-                    </td>
-                </tr>
                 </tbody>
             </table>
         </div>
-    </div>
 
-    <div class="order">
-        <form id="orderForm" method="post">
-            <div>
-                <label>이름 <input type="text" name="orderUserName" placeholder="이름"
-                                 required/></label>
-            </div>
-            <div>
-                <input type="text" id="postcode" placeholder="우편번호">
-                <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-                <input type="text" id="address1" placeholder="주소"><br>
-                <input type="text" id="address2" placeholder="상세주소">
-                <input type="text" id="address3" placeholder="참고항목">
-            </div>
-            <div>
-                <input type="tel" name="orderUserPhone" placeholder="전화번호" required/>
-            </div>
-            <div>
-                <label>배출예정시간<input type="datetime-local" name="disposeDatetime"
-                                    required/></label>
-            </div>
-            <select name="districtName">
-                <option value="행정동" selected>행정동</option>
-                <option value="월계1동">월계1동</option>
-                <option value="월계2동">월계2동</option>
-                <option value="월계3동">월계3동</option>
-                <option value="공릉1동">공릉1동</option>
-                <option value="공릉2동">공릉2동</option>
-                <option value="하계1동">하계1동</option>
-                <option value="하계2동">하계2동</option>
-                <option value="중계본동">중계본동</option>
-                <option value="중계1동">중계1동</option>
-                <option value="중계2.3동">중계2.3동</option>
-                <option value="중계4동">중계4동</option>
-                <option value="상계1동">상계1동</option>
-                <option value="상계2동">상계2동</option>
-                <option value="상계3.4동">상계3.4동</option>
-                <option value="상계5동">상계5동</option>
-                <option value="상계6.7동">상계6.7동</option>
-                <option value="상계8동">상계8동</option>
-                <option value="상계9동">상계9동</option>
-                <option value="상계10동">상계10동</option>
-            </select>
-
-            <div class="result">
-                <table id="resultTable">
-                    <thead>
-                    <tr>
-                        <th>폐기물명</th>
-                        <th>규격</th>
-                        <th>수량</th>
-                        <th>가격</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-
-            <div>
-                <button id="submitButton" type="submit">신청하기</button>
-            </div>
-        </form>
-    </div>
+        <div class="row mb-2">
+            <button id="submitButton" class="btn btn-primary col-2 mx-auto" type="submit">신청하기</button>
+        </div>
+    </form>
+</div>
 
 <script>
     (function () {
@@ -229,7 +277,7 @@
 <script>
     function execDaumPostcode() {
         new daum.Postcode({
-            oncomplete: function(data) {
+            oncomplete: function (data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
                 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
@@ -245,18 +293,18 @@
                 }
 
                 // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
+                if (data.userSelectedType === 'R') {
                     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
                     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
                         extraAddr += data.bname;
                     }
                     // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
                         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                     }
                     // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
+                    if (extraAddr !== '') {
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
@@ -426,7 +474,8 @@
 
 <footer class="container" th:fragment="foot">
     <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot;
+        <a href="#">Terms</a></p>
 </footer>
 </body>
 </html>

@@ -18,18 +18,21 @@ public class OrderDto {
     private String orderUserName;
     private String orderUserPhone;
     private String userId;
+    private String itemName;
     private String address1;
     private String address2;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat
     private LocalDateTime disposeDate;
     private LocalDateTime orderDate;
     private Long districtCode;
     private String districtName;
     private String pickupStatus;
 
+
     public static OrderDto of(Order order) {
 
         return OrderDto.builder()
+                .orderId(order.getOrderId())
                 .orderUserName(order.getOrderUserName())
                 .districtName(order.getDistrictName())
                 .districtCode(order.getDistrictCode())

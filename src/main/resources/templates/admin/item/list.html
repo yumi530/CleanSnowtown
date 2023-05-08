@@ -17,6 +17,8 @@
 <div class="list">
     <div class="d-flex justify-content-center">
         <form method="post" action="/admin/item/add.do">
+            <input value="" type="text" name="category" placeholder="카테고리"
+                   required>
             <input value="" type="text" name="itemName" placeholder="폐기물명"
                    required>
             <input value="" type="text" name="itemDetail" placeholder="규격">
@@ -31,6 +33,7 @@
         <thead>
         <tr th:align="center">
             <th>번호</th>
+            <th>카테고리</th>
             <th>
                 폐기물명
             </th>
@@ -52,11 +55,13 @@
                 <p th:text="${x.itemId}">1</p>
             </td>
             <td>
+                <input th:value="${x.category}" type="text" name="category"/>
+            </td>
+            <td>
                 <input th:value="${x.itemName}" type="text" name="itemName"/>
             </td>
             <td>
-                <input th:value="${x.itemDetail}" type="text"
-                       name="itemDetail"/>
+                <input th:value="${x.itemDetail}" type="text" name="itemDetail"/>
             </td>
             <td>
                 <input th:value="${x.price}" type="text" name="price"/>
@@ -67,6 +72,8 @@
                           action="/admin/item/update.do">
                         <input type="hidden" name="itemId"
                                th:value="${x.itemId}"/>
+                        <input type="hidden" name="category"
+                               th:value="${x.category}"/>
                         <input type="hidden" name="itemName"
                                th:value="${x.itemName}"/>
                         <input type="hidden" name="itemDetail"

@@ -22,5 +22,6 @@ public class Item {
     private Long price;
     private String itemDetail;
     private String itemName;
+    private String category;
 
 }

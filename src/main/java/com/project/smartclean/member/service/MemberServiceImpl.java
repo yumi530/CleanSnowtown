@@ -55,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> optionalMember = memberRepository.findById(parameter.getUserId());
         if (optionalMember.isPresent()) {
-            return false;
+            throw new RuntimeException("이미 사용중인 ID 입니다.");
         }
         String encPassword = BCrypt.hashpw(parameter.getPassword(), BCrypt.gensalt());
         String uuid = UUID.randomUUID().toString();

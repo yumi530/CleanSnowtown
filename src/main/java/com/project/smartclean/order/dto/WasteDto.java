@@ -21,6 +21,7 @@ public class WasteDto {
     private String itemDetail;
 //    private int sortValue;
 //    private boolean checkedYn;
+    private String category;
 
 
 
@@ -33,6 +34,7 @@ public class WasteDto {
                 .itemDetail(item.getItemDetail())
                 //.checkedYn(item.isCheckedYn())
                 //.sortValue(item.getSortValue())
+                .category(item.getCategory())
                 .build();
     }
 

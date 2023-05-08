@@ -1,5 +1,6 @@
 package com.project.smartclean.admin.controller;
 
+import com.project.smartclean.order.dto.OrderDto;
 import com.project.smartclean.order.entity.Order;
 import com.project.smartclean.order.model.OrderForm;
 import com.project.smartclean.order.service.OrderService;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -33,17 +35,17 @@ public class AdminPickupController {
 //        return "admin/pickup/detail"+ orderNumber;
 //    }
 // 밑으로 살려
-//    @GetMapping("/detail.do")
-//    public String pickupDetail(Model model,OrderForm parameter) {
-//        UserOrderDto detail = orderService.userOrderDetail(parameter.getOrderNumber());
-//        model.addAttribute("detail", detail);
-//        return "admin/pickup/detail";
-//    }
+    @GetMapping("/detail.do")
+    public String pickupDetail(Model model,OrderForm parameter) {
+        OrderDto detail = orderService.orderDetail(parameter.getOrderId());
+        model.addAttribute("detail", detail);
+        return "admin/pickup/detail";
+    }
 
-//    @PostMapping("/status.do")
-//    public String status(Model model, OrderForm parameter) {
-//        boolean result = orderService.pickupStatus(parameter.getOrderNumber(), parameter.getPickupStatus());
-//        model.addAttribute("result", result);
-//        return "redirect:/admin/pickup/list.do";
-//    }
+    @PostMapping("/status.do")
+    public String status(Model model, OrderForm parameter) {
+        boolean result = orderService.pickupStatus(parameter.getOrderId(), parameter.getPickupStatus());
+        model.addAttribute("result", result);
+        return "redirect:/admin/pickup/list.do";
+    }
 }

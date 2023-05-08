@@ -18,7 +18,7 @@ public class AdminCategoryController {
     private final AdminCategoryService categoryService;
 
     @GetMapping("/admin/item/list.do")
-    public String list(Model model, WasteDto parameter) {
+    public String list(Model model) {
         List<WasteDto> list = categoryService.list();
         model.addAttribute("list", list);
         return "admin/item/list";

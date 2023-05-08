@@ -1,5 +1,7 @@
 package com.project.smartclean.order.controller;
 
+import com.project.smartclean.admin.dto.MemberDto;
+import com.project.smartclean.order.dto.OrderDto;
 import com.project.smartclean.order.dto.WasteDto;
 import com.project.smartclean.order.entity.Item;
 import com.project.smartclean.order.entity.Order;
@@ -7,6 +9,8 @@ import com.project.smartclean.order.model.OrderForm;
 import com.project.smartclean.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -56,6 +60,13 @@ public class OrderController {
     @PostMapping("/waste_complete")
     public String wasteComplete() {
         return "order/complete";
+    }
+
+    @GetMapping("/detail")
+    public String orderDetail(Model model, OrderForm parameter) {
+        OrderDto orderDto = orderService.orderDetail(parameter.getOrderId());
+        model.addAttribute("order", orderDto);
+        return "order/detail";
     }
 
 }

@@ -1,8 +1,10 @@
 package com.project.smartclean.board.controller;
 
+import com.project.smartclean.board.dto.CommentDto;
 import com.project.smartclean.board.entity.Board;
 import com.project.smartclean.board.entity.Search;
 import com.project.smartclean.board.service.BoardService;
+import com.project.smartclean.board.service.CommentService;
 import com.project.smartclean.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -26,6 +29,7 @@ import java.io.IOException;
 public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
+    private final CommentService commentService;
 
     @GetMapping("/list")
     public String boardList(Model model, @PageableDefault(page =  0 , size = 10, sort = "boardNo", direction = Sort.Direction.DESC) Pageable pageable, Search search) {
@@ -67,7 +71,8 @@ public class BoardController {
 
         Board board = boardService.readBoard(boardNo);
         boardService.updateView(boardNo);
-
+        List<CommentDto> commentDtoList = commentService.findAll(boardNo);
+        model.addAttribute("commentList", commentDtoList);
         model.addAttribute("board", board);
 
         /*

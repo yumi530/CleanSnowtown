@@ -19,7 +19,7 @@ public class OrderForm {
     private String orderId;
     private String address1;
     private String address2;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat
     private LocalDateTime disposeDate;
     private LocalDateTime orderDate;
     private String orderUserPhone;

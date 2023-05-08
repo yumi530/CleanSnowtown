@@ -21,7 +21,7 @@ public class MailComponents {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-                mimeMessageHelper.setFrom("chenj742@naver.com");
+                mimeMessageHelper.setFrom("yum_aily@naver.com");
                 mimeMessageHelper.setTo(mail);
                 mimeMessageHelper.setSubject(subject);
                 mimeMessageHelper.setText(text);

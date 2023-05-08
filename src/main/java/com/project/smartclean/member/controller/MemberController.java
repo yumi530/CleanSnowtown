@@ -111,16 +111,18 @@ public String memberPassword(Model model, Principal principal) {
     }
 
     @GetMapping("/withdraw")
-    public String withdraw(Model model){
+    public String withdraw() {
         return "member/withdraw";
     }
 
     @PostMapping("/withdraw")
-    public String withdrawSubmit(Model model, SignUpForm parameter, Principal principal){
+    public String withdrawSubmit(Model model, SignUpForm parameter, @AuthenticationPrincipal User user){
 
-        String userId = principal.getName();
+        //String userId = principal.getName();
 
-        ServiceResult result = memberService.withdraw(userId, parameter.getPassword());
+        ServiceResult result = memberService.withdraw(user.getUsername(), parameter.getPassword());
+        model.addAttribute("user",user.getUsername());
+
         if (!result.isResult()) {
             model.addAttribute("message", result.getMessage());
             return "common/error";
