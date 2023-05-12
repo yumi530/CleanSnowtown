@@ -1,5 +1,4 @@
 spring:
-  mvc:
   datasource:
     url: jdbc:mysql://localhost:3307/clean?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,9 +9,10 @@ spring:
   devtools:
     livereload:
       enabled: true
+    restart:
+      enabled: true
   thymeleaf:
     cache: false
-
 
   jpa:
     generate-ddl: true

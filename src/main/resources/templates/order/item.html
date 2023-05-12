@@ -41,7 +41,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="x : ${list}">
+        <tr th:each="x : ${list}" th:class="${x.category}">
             <td th:text="${x.itemId}"></td>
             <td th:text="${x.category}"></td>
             <td th:text="${x.itemName}"></td>
@@ -83,14 +83,15 @@
         </div>
 
         <div class="row">
-            <div class="mb-2 col-4">
+            <div class="mb-2 col-6">
                 <label for="postcode" class="form-label">우편번호</label>
                 <div class="input-group">
-<!--                    <input type="text" id="postcode" placeholder="우편번호">-->
-<!--                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>-->
-                    <input type="text" id="postcode" name="postcode" class="form-control"
+                    <!--                    <input type="text" id="postcode" placeholder="우편번호">-->
+                    <!--                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>-->
+                    <input type="text" id="postcode" name="postcode"
+                           class="form-control"
                            placeholder="우편번호" aria-label="우편번호=="
-                           aria-describedby="button-addon-postcode" >
+                           aria-describedby="button-addon-postcode">
                     <button class="btn btn-secondary" type="button"
                             id="button-addon-postcode"
                             onclick="execDaumPostcode()">우편번호 찾기
@@ -98,84 +99,101 @@
                 </div>
             </div>
 
-            <div class="mb-2 col-4">
+            <div class="mb-2 col-6">
                 <label for="address1" class="form-label">주소</label>
                 <input type="text" class="form-control" id="address1"
                        name="address1" placeholder="주소" required>
-            </div>
-
-            <div class="mb-2 col-4">
-                <label for="address2" class="form-label">상세주소</label>
-                <input type="text" class="form-control" id="address2"
-                       name="address2" placeholder="상세주소" required>
             </div>
         </div>
 
         <div class="row">
             <div class="mb-2 col-6">
-                <label for="disposeDate" class="form-label">배출예정시간</label>
-                <input type="datetime-local" class="form-control" id="disposeDate"
-                       name="disposeDatetime" placeholder="배출예정시간" required>
+                <label for="address2" class="form-label">상세주소</label>
+                <input type="text" class="form-control" id="address2"
+                       name="address2" placeholder="상세주소" required>
             </div>
 
             <div class="mb-2 col-6">
+                <label for="address3" class="form-label">참고항목</label>
+                <input type="text" class="form-control" id="address3"
+                       name="address3" placeholder="참고항목" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mb-2 col-8">
+                <!--                <div th:text="${#dates.format(param.disposeDate, 'yyyy-MM-dd HH:mm')}">-->
+                <label for="disposeDate" class="form-label">배출예정시간</label>
+                <input type="datetime-local" class="form-control"
+                       id="disposeDate"
+                       name="disposeDatetime" placeholder="배출예정시간" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mb-2 col-8">
                 <label for="districtName" class="form-label">배출지역</label>
-                <select id="districtName" class="form-select" name="districtName">
+                <select id="districtName" class="form-select"
+                        name="districtName">
                     <option value="행정동" selected>행정동</option>
                     <option value="스노우1동">스노우1동</option>
                     <option value="스노우2동">스노우2동</option>
                     <option value="스노우3동">스노우3동</option>
                     <option value="스노우4동">스노우4동</option>
-<!--                    <option value="월계1동">월계1동</option>-->
-<!--                    <option value="월계2동">월계2동</option>-->
-<!--                    <option value="월계3동">월계3동</option>-->
-<!--                    <option value="공릉1동">공릉1동</option>-->
-<!--                    <option value="공릉2동">공릉2동</option>-->
-<!--                    <option value="하계1동">하계1동</option>-->
-<!--                    <option value="하계2동">하계2동</option>-->
-<!--                    <option value="중계본동">중계본동</option>-->
-<!--                    <option value="중계1동">중계1동</option>-->
-<!--                    <option value="중계2.3동">중계2.3동</option>-->
-<!--                    <option value="중계4동">중계4동</option>-->
-<!--                    <option value="상계1동">상계1동</option>-->
-<!--                    <option value="상계2동">상계2동</option>-->
-<!--                    <option value="상계3.4동">상계3.4동</option>-->
-<!--                    <option value="상계5동">상계5동</option>-->
-<!--                    <option value="상계6.7동">상계6.7동</option>-->
-<!--                    <option value="상계8동">상계8동</option>-->
-<!--                    <option value="상계9동">상계9동</option>-->
-<!--                    <option value="상계10동">상계10동</option>-->
+                    <!--                    <option value="월계1동">월계1동</option>-->
+                    <!--                    <option value="월계2동">월계2동</option>-->
+                    <!--                    <option value="월계3동">월계3동</option>-->
+                    <!--                    <option value="공릉1동">공릉1동</option>-->
+                    <!--                    <option value="공릉2동">공릉2동</option>-->
+                    <!--                    <option value="하계1동">하계1동</option>-->
+                    <!--                    <option value="하계2동">하계2동</option>-->
+                    <!--                    <option value="중계본동">중계본동</option>-->
+                    <!--                    <option value="중계1동">중계1동</option>-->
+                    <!--                    <option value="중계2.3동">중계2.3동</option>-->
+                    <!--                    <option value="중계4동">중계4동</option>-->
+                    <!--                    <option value="상계1동">상계1동</option>-->
+                    <!--                    <option value="상계2동">상계2동</option>-->
+                    <!--                    <option value="상계3.4동">상계3.4동</option>-->
+                    <!--                    <option value="상계5동">상계5동</option>-->
+                    <!--                    <option value="상계6.7동">상계6.7동</option>-->
+                    <!--                    <option value="상계8동">상계8동</option>-->
+                    <!--                    <option value="상계9동">상계9동</option>-->
+                    <!--                    <option value="상계10동">상계10동</option>-->
                 </select>
             </div>
         </div>
 
-        <div class="container result">
-            <h4>배출 목록</h4>
-            <table id="resultTable" class="table">
-                <thead>
-                <tr>
-                    <th>폐기물명</th>
-                    <th>규격</th>
-                    <th>수량</th>
-                    <th>가격</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
 
-        <div class="row mb-2">
-            <button id="submitButton" class="btn btn-primary col-2 mx-auto" type="submit">신청하기</button>
-        </div>
-    </form>
+<div class="container result">
+    <h4>배출 목록</h4>
+    <table id="resultTable" class="table">
+        <thead>
+        <tr>
+            <th>폐기물명</th>
+            <th>규격</th>
+            <th>수량</th>
+            <th>가격</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<div class="row mb-2">
+    <button id="submitButton" class="btn btn-primary col-2 mx-auto"
+            type="submit">신청하기
+    </button>
+</div>
+</form>
 </div>
 
 <script>
     (function () {
-        checkWaste();
+        selectItem();
 
-        function checkWaste() {
+        function selectItem() {
             let selectButtons = document.getElementsByClassName("select-button");
             for (let i = 0; i < selectButtons.length; i++) {
                 selectButtons[i].addEventListener("click", function () {
@@ -194,8 +212,13 @@
                         let count = existRow.querySelector(".count-cell");
                         let price = existRow.querySelector(".price-cell");
 
-                        count.innerText = Number(count.innerText) + 1;
-                        price.innerText = Number(price.innerText) + Number(this.dataset.price);
+                        if (Number(count.innerText) >= 5) {
+                            alert("5개 이상 안됨 ㅋ")
+                        } else {
+                            count.innerText = Number(count.innerText) + 1;
+                            price.innerText = Number(price.innerText) + Number(this.dataset.price);
+                        }
+
                     } else {
                         const newRow = resultTable.querySelector("tbody").insertRow();
                         newRow.dataset.id = this.dataset.id;
@@ -203,6 +226,7 @@
                         const newCell1 = newRow.insertCell(1);
                         const newCell2 = newRow.insertCell(2);
                         const newCell3 = newRow.insertCell(3);
+                        const newCell4 = newRow.insertCell(4);
 
                         newCell0.innerText = this.dataset.name;
                         newCell0.classList.add("name-cell");
@@ -212,9 +236,21 @@
                         newCell2.classList.add("count-cell");
                         newCell3.innerText = this.dataset.price;
                         newCell3.classList.add("price-cell");
+                        const deleteButton = document.createElement("button");
+                        deleteButton.innerText = "삭제";
+                        deleteButton.classList.add("btn");
+                        deleteButton.classList.add("btn-light");
+                        deleteButton.classList.add("delete-button");
+                        deleteButton.addEventListener("click", deleteItem);
+                        newCell4.insertAdjacentElement("afterbegin", deleteButton);
                     }
                 })
             }
+        }
+
+        function deleteItem() {
+            const tr = this.closest("tr");
+            tr.remove();
         }
     })();
 
@@ -223,7 +259,6 @@
 
         function submitForm() {
             let submitButton = document.getElementById("submitButton");
-
             submitButton.addEventListener("click", function (e) {
                 e.preventDefault();
 
@@ -323,154 +358,6 @@
         }).open();
     }
 </script>
-
-<!--<script>-->
-<!--    function getWaste(num) {-->
-<!--        // var juso_keyword = $("#txt_juso_keyword").val();-->
-
-<!--        var pageSize = 10;-->
-<!--        var totalPages = 0;-->
-<!--        var curPage = num;-->
-<!--        $("input[name='currentPage']").val(curPage); // 페이지 바꿔주기-->
-
-<!--        // $.ajax({-->
-<!--        //     url :"https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do"  // 인터넷망-->
-<!--        //     ,type:"post"-->
-<!--        //     ,data:$("#juso_frm").serialize()-->
-<!--        //     ,dataType:"jsonp"-->
-<!--        //     ,crossDomain:true-->
-<!--        //     ,success:function(jsonStr){-->
-<!--        //         var errCode = jsonStr.results.common.errorCode;-->
-<!--        //         var errDesc = jsonStr.results.common.errorMessage;-->
-<!--        //         var totalCount = jsonStr.results.common.totalCount;-->
-<!--        //         if(errCode != "0"){-->
-<!--        //             console.log(errCode+"="+errDesc);-->
-<!--        //             alertWarning(errorTitle, errDesc, btnText);-->
-<!--        //             //closepop();-->
-<!--        //         }else{-->
-<!--        //             if(jsonStr != null){-->
-<!--        //                 makeListJson(jsonStr);-->
-
-<!--        // 페이징처리-->
-<!--        if (totalCount != 0) {-->
-<!--            totalPages = Math.ceil(totalCount / pageSize);-->
-<!--            // pageLink(현재페이지, 전체페이지, 호출할 함수이름)-->
-<!--            var htmlStr = pageLink(curPage, totalPages, "getWaste");-->
-<!--            // common.js - pageLink-->
-<!--            $("#div_paginate").html(htmlStr);-->
-<!--        } else {-->
-<!--            //alert("검색되는 주소없음")-->
-<!--        }-->
-<!--    }-->
-
-
-<!--            // ,error: function(xhr,status, error){-->
-<!--            //     alertWarning(errorTitle, "주소 에러발생", btnText);-->
-<!--            // }-->
-<!-- //       });-->
-<!--    //     }-->
-<!--    function pageLink(curPage, totalPages, funName) {-->
-<!--        var pageUrl = "";-->
-
-<!--        var pageLimit = 5;-->
-<!--        var startPage = parseInt((curPage - 1) / pageLimit) * pageLimit + 1;-->
-<!--        var endPage = startPage + pageLimit - 1;-->
-
-<!--        if (totalPages < endPage) {-->
-<!--            endPage = totalPages;-->
-<!--        }-->
-
-<!--        var nextPage = endPage + 1;-->
-<!--        //console.log(curPage,"curPage,",startPage,"startPage,",endPage,"endPage,",nextPage,"nextPage")-->
-
-<!--        //맨 첫 페이지-->
-<!--        if (curPage > 1 && pageLimit < curPage) {-->
-<!--            pageUrl += "<a class='page first' href='javascript:" + funName + "(1);'><i class='fas fa-angle-double-left'></a>";-->
-<!--        }-->
-<!--        //이전 페이지-->
-<!--        if (curPage > pageLimit) {-->
-<!--            pageUrl += " <a class='page prev' href='javascript:" + funName + "(" + (startPage == 1 ? 1 : startPage - 1) + ");'><i class='fas fa-angle-left'></a>";-->
-<!--        }-->
-<!--        //~pageLimit 맞게 페이지 수 보여줌-->
-<!--        for (var i = startPage; i <= endPage; i++) {-->
-<!--            //현재페이지면 진하게 표시-->
-<!--            if (i == curPage) {-->
-<!--                pageUrl += " <a href='#'><strong>" + i + "</strong></a>"-->
-<!--            } else {-->
-<!--                pageUrl += " <a href='javascript:" + funName + "(" + i + ");'> " + i + " </a>";-->
-<!--            }-->
-<!--        }-->
-<!--        //다음 페이지-->
-<!--        if (nextPage <= totalPages) {-->
-<!--            pageUrl += "<a class='page next' href='javascript:" + funName + "(" + (nextPage < totalPages ? nextPage : totalPages) + ");'><i class='fas fa-angle-right'></a>";-->
-<!--        }-->
-<!--        //맨 마지막 페이지-->
-<!--        if (curPage < totalPages && nextPage < totalPages) {-->
-<!--            pageUrl += "<a class='page last' href='javascript:" + funName + "(" + totalPages + ");'><i class='fas fa-angle-double-right'></a>";-->
-<!--        }-->
-<!--        //console.log(pageUrl);-->
-
-<!--        return pageUrl;-->
-<!--    }-->
-<!--
-&lt;!&ndash;</script>&ndash;&gt;
-<script>
-
-    let totalData; //총 데이터 수
-    let dataPerPage; //한 페이지에 나타낼 글 수
-    let pageCount = 10; //페이징에 나타낼 페이지 수
-    let globalCurrentPage=1; //현재 페이지
-    let dataList; //표시하려하는 데이터 리스트
-
-    $(document).ready(function () {
-        //dataPerPage 선택값 가져오기
-        dataPerPage = $("#dataPerPage").val();
-
-        $.ajax({ // ajax로 데이터 가져오기
-            method: "GET",
-            url: "https://localhost:8080/order/waste" + data,
-            dataType: "json",
-            success: function (d) {
-                //totalData(총 데이터 수) 구하기
-                totalData = d.data.length;
-                //데이터 대입
-                dataList = d.data;
-            }
-            });
-
-        //글 목록 표시 호출 (테이블 생성)
-        displayData(1, dataPerPage);
-
-        //페이징 표시 호출
-        paging(totalData, dataPerPage, pageCount, 1);
-    });
-
-    //현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
-    function displayData(currentPage, dataPerPage) {
-
-        let chartHtml = "";
-
-//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림..
-        currentPage = Number(currentPage);
-        dataPerPage = Number(dataPerPage);
-
-        for (
-            var i = (currentPage - 1) * dataPerPage;
-            i < (currentPage - 1) * dataPerPage + dataPerPage;
-            i++
-        ) {
-            chartHtml +=
-                "<tr><td>" +
-                dataList[i].d1 +
-                "</td><td>" +
-                dataList[i].d2 +
-                "</td><td>" +
-                dataList[i].d3 +
-                "</td></tr>";
-        } //dataList는 임의의 데이터임.. 각 소스에 맞게 변수를 넣어주면 됨...
-        $("#dataTableBody").html(chartHtml);
-    }
-</script>-->
 
 <footer class="container" th:fragment="foot">
     <p class="float-end"><a href="#">Back to top</a></p>

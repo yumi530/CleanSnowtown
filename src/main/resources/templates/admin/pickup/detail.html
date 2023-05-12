@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: head('관리자 수거 상세 내역')">
 <head>
     <meta charset="UTF-8">
-    <title>주문상세내역</title>
+    <title th:text="${title}">수거 상세 내역</title>
 </head>
 <body>
+<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu-admin">
+</nav>
+<div class="p-3 mb-2 bg-light rounded-1">
+    <div class="d-flex justify-content-center">
+        <h3  class="fw-bold">수거 신청 내역</h3>
+    </div>
+</div>
+<div class="d-flex justify-content-end">
 <!--<table>-->
 <!--    <thead>-->
 <!--    <tr>-->
@@ -19,8 +28,9 @@
 <!--    </tr>-->
 <!--    </tbody>-->
 <!--</table>-->
-<table>
-    <tbody>
+    <div class="container">
+<table class="table table-hover">
+    <tbody class="text-center">
     <tr>
         <th>주문번호</th>
         <td>
@@ -82,7 +92,7 @@
                         <option value="수거완료">수거완료</option>
                         <option value="수거반려">수거반려</option>
                     </select>
-                    <button type="submit">상태변경</button>
+                    <button type="submit" class="btn btn-primary">상태변경</button>
                 </form>
             </div>
         </td>
@@ -92,7 +102,7 @@
         <td>
             <div>
                 <form method="get" action="/admin/send.do">
-                    <button type="submit">메세지 전송</button>
+                    <button type="submit" class="btn btn-secondary">메세지 전송</button>
                 </form>
             </div>
         </td>
@@ -100,5 +110,10 @@
 
     </tbody>
 </table>
+        <div>
+            <a href="list.do">목록</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

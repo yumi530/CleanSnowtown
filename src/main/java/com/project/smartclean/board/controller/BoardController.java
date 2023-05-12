@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,16 +35,16 @@ public class BoardController {
     private final CommentService commentService;
 
     @GetMapping("/list")
-    public String boardList(Model model, @PageableDefault(page =  0 , size = 10, sort = "boardNo", direction = Sort.Direction.DESC) Pageable pageable, Search search) {
+    public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort = "boardNo", direction = Sort.Direction.DESC) Pageable pageable, Search search) {
 
         if (search.getSearchCondition() == null)
             search.setSearchCondition("title");
         if (search.getSearchKeyword() == null)
             search.setSearchKeyword("");
-        Page<Board>list = boardService.getBoardList(search, pageable);
+        Page<Board> list = boardService.getBoardList(search, pageable);
 
         int nowPage = list.getPageable().getPageNumber() + 1;
-        int startPage = Math.max(nowPage - 4 , 1);
+        int startPage = Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage + 5, list.getTotalPages());
 
         model.addAttribute("list", list);
@@ -50,12 +53,14 @@ public class BoardController {
         model.addAttribute("endPage", endPage);
         return "board/list";
     }
+
     @GetMapping("/insert")
-    public String insertBoard(){
+    public String insertBoard() {
         return "board/insert";
     }
+
     @PostMapping("/insert")
-    public String insertBoardSubmit(Board board, @AuthenticationPrincipal User user, MultipartFile file){
+    public String insertBoardSubmit(Board board, @AuthenticationPrincipal User user, MultipartFile file) {
         //MemberDto memberDto = memberService.detail(user.getUsername());
         board.setWriteName(user.getUsername());
         try {
@@ -68,7 +73,6 @@ public class BoardController {
 
     @GetMapping("/read")
     public String readBoard(Model model, Long boardNo) {
-
         Board board = boardService.readBoard(boardNo);
         boardService.updateView(boardNo);
         List<CommentDto> commentDtoList = commentService.findAll(boardNo);
@@ -85,13 +89,28 @@ public class BoardController {
 
         return "board/read";
     }
-    @PostMapping("/update")
-    public String updateBoard(Board board){
-        boardService.updateBoard(board);
-        return "forward:board/list";
+    @PreAuthorize("isAuthenticated() and ((#board.writeName == principal.username ) or hasRole('ROLE_ADMIN'))")
+    @GetMapping("/update")
+    public String updateForm(Long boardNo, Model model) {
+        Board board = boardService.readBoard(boardNo);
+        model.addAttribute("boardUpdate", board);
+        return "board/modify";
     }
+
+    @PostMapping("/update")
+    public String updateBoard(Board board) {
+        boardService.updateBoard(board);
+        return "redirect:list";
+    }
+
+    //    @GetMapping("/update/{boardNo}")
+//    public String updateBoard(@PathVariable Long boardNo, Model model) {
+//        Board board = boardService.readBoard(boardNo);
+//        model.addAttribute("boardUpdate", board);
+//        return "board/modify";
+//    }
     @GetMapping("/delete")
-    public String deleteBoard(Board board){
+    public String deleteBoard(Board board, RedirectAttributes rtts) {
         boardService.deleteBoard(board);
         return "forward:board/list";
     }

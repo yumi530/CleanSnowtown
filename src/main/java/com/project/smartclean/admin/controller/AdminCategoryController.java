@@ -2,7 +2,7 @@ package com.project.smartclean.admin.controller;
 
 import com.project.smartclean.admin.service.AdminCategoryService;
 import com.project.smartclean.order.dto.DistrictsDto;
-import com.project.smartclean.order.dto.WasteDto;
+import com.project.smartclean.order.dto.ItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,32 +19,32 @@ public class AdminCategoryController {
 
     @GetMapping("/admin/item/list.do")
     public String list(Model model) {
-        List<WasteDto> list = categoryService.list();
+        List<ItemDto> list = categoryService.list();
         model.addAttribute("list", list);
         return "admin/item/list";
     }
 
     @PostMapping("/admin/item/add.do")
-    public String addList(WasteDto parameter) {
+    public String addList(ItemDto parameter) {
         categoryService.addWaste(parameter);
         return "redirect:/admin/item/list.do";
     }
 
     @PostMapping("/admin/item/delete.do")
-    public String deleteWaste(WasteDto parameter) {
+    public String deleteWaste(ItemDto parameter) {
         categoryService.deleteWaste(parameter);
         return "redirect:/admin/item/list.do";
     }
 
     @PostMapping("/admin/item/update.do")
-    public String updateWaste(WasteDto parameter) {
+    public String updateWaste(ItemDto parameter) {
         categoryService.updateWaste(parameter);
         return "redirect:/admin/item/list.do";
     }
 
 
     @GetMapping("/admin/district/list.do")
-    public String list(Model model, DistrictsDto parameter) {
+    public String districtList(Model model) {
 
         List<DistrictsDto> list = categoryService.districtList();
         model.addAttribute("list", list);

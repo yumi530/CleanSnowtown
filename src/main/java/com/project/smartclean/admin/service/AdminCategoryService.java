@@ -2,20 +2,20 @@ package com.project.smartclean.admin.service;
 
 //import com.project.smartclean.admin.model.WasteCategoryInput;
 import com.project.smartclean.order.dto.DistrictsDto;
-import com.project.smartclean.order.dto.WasteDto;
+import com.project.smartclean.order.dto.ItemDto;
 
 import java.util.List;
 
 public interface AdminCategoryService {
 
 
-    List<WasteDto>list();
+    List<ItemDto>list();
 
-    void addWaste(WasteDto parameter);
+    void addWaste(ItemDto parameter);
 
-    void deleteWaste(WasteDto parameter);
+    void deleteWaste(ItemDto parameter);
 
-    void updateWaste(WasteDto parameter);
+    void updateWaste(ItemDto parameter);
 
     List<DistrictsDto> districtList();
 

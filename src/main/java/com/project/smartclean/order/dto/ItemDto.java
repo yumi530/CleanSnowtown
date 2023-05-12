@@ -1,5 +1,6 @@
 package com.project.smartclean.order.dto;
 
+import com.project.smartclean.admin.entity.Category;
 import com.project.smartclean.order.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class WasteDto {
+public class ItemDto {
     private Long itemId;
     //    private Long districtCode;
     private String itemName;
@@ -21,13 +22,13 @@ public class WasteDto {
     private String itemDetail;
 //    private int sortValue;
 //    private boolean checkedYn;
-    private String category;
+    private Category category;
 
 
 
-    public static WasteDto of(Item item) {
+    public static ItemDto of(Item item) {
 
-        return WasteDto.builder()
+        return ItemDto.builder()
                 .itemId(item.getItemId())
                 .itemName(item.getItemName())
                 .price(item.getPrice())
@@ -38,17 +39,17 @@ public class WasteDto {
                 .build();
     }
 
-    public static List<WasteDto> of(List<Item> items) {
+    public static List<ItemDto> of(List<Item> items) {
 
         if (items == null) {
             return null;
         }
 
-        List<WasteDto> wasteDtoList = new ArrayList<>();
+        List<ItemDto> itemDtoList = new ArrayList<>();
         for (Item x : items) {
-            wasteDtoList.add(WasteDto.of(x));
+            itemDtoList.add(ItemDto.of(x));
         }
-        return wasteDtoList;
+        return itemDtoList;
     }
 
 }

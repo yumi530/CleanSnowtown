@@ -26,6 +26,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class MemberServiceImpl implements MemberService {
         if (optionalMember.isPresent()) {
             throw new RuntimeException("이미 사용중인 ID 입니다.");
         }
+
         String encPassword = BCrypt.hashpw(parameter.getPassword(), BCrypt.gensalt());
         String uuid = UUID.randomUUID().toString();
 
@@ -73,10 +75,10 @@ public class MemberServiceImpl implements MemberService {
                 .createdAt(LocalDateTime.now())
                 .verifiedYn(false)
                 .verifiedKey(uuid)
+                .userStatus(Member.MEMBER_STATUS_REQ)
                 .build();
         memberRepository.save(member);
 
-        //memberRepository.save(member);
 
         String email = parameter.getUserId();
         String subject = "Smart Clean 회원가입 인증";
@@ -95,9 +97,9 @@ public class MemberServiceImpl implements MemberService {
         if (member.isVerifiedYn()) {
             return false;
         }
-        //member.setUserStatus(Member.MEMBER_STATUS_ING);
         member.setVerifiedYn(true);
         member.setVerifiedAt(LocalDateTime.now());
+        member.setUserStatus(Member.MEMBER_STATUS_ING);
         memberRepository.save(member);
 
         return true;
@@ -212,19 +214,6 @@ public class MemberServiceImpl implements MemberService {
         return true;
     }
 
-
-//    @Override
-//    public boolean withdraw(SignUpForm member) {
-//            memberRepository.deleteById(member.getUserId());
-////        Optional<Member> optionalMember = memberRepository.findById(parameter.getUserId());
-////        if (!optionalMember.isPresent()) {
-////            throw new UsernameNotFoundException("가입된 회원 정보가 없습니다.");
-////        }
-////        Member member = optionalMember.get();
-////        memberRepository.delete(member);
-//        return false;
-//    }
-
     @Override
     public ServiceResult withdraw(String userId, String password) {
 
@@ -249,7 +238,7 @@ public class MemberServiceImpl implements MemberService {
         member.setVerifiedKey("");
         member.setResetPasswordKey("");
         member.setResetPasswordLimitDt(null);
-        member.setUserStatus(MemberCode.MEMBER_STATUS_WITHDRAW);
+        member.setUserStatus(Member.MEMBER_STATUS_WITHDRAW);
         member.setAddress1("");
         member.setAddress2("");
         member.setAddress3("");
@@ -291,6 +280,7 @@ public class MemberServiceImpl implements MemberService {
         }else if (search.getSearchCondition().equals("phone")) {
             builder.and(qMember.phone.like("%" + search.getSearchKeyword() + "%"));
         }
+
         return memberRepository.findAll(builder, pageable);
     }
 
@@ -320,6 +310,8 @@ public class MemberServiceImpl implements MemberService {
         if (member.isAdminYn()) {
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
+
+
 
         return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
 

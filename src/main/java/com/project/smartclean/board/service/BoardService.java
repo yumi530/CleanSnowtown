@@ -17,7 +17,11 @@ public interface BoardService {
     void insertBoard(Board board, MultipartFile file) throws IOException;
 
     Board readBoard(Long boardNo);
-    void updateBoard(Board board);
+
+    Board findById(Long boardNo);
+
+    //    Board readBoard(Board board, User user, Member member);
+    Board updateBoard(Board board);
     void deleteBoard(Board board);
     void updateView(Long boardNo);
 

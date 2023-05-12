@@ -1,16 +1,14 @@
 package com.project.smartclean.order.controller;
 
-import com.project.smartclean.admin.dto.MemberDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.smartclean.order.dto.OrderDto;
-import com.project.smartclean.order.dto.WasteDto;
+import com.project.smartclean.order.dto.ItemDto;
 import com.project.smartclean.order.entity.Item;
 import com.project.smartclean.order.entity.Order;
 import com.project.smartclean.order.model.OrderForm;
 import com.project.smartclean.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -36,34 +34,25 @@ public class OrderController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
-    @GetMapping("/")
-    public String order() {
-        return "order/page";
-    }
-
     @GetMapping("/item")
     public String getAllList(Model model, Item item) {
-        List<WasteDto> list = orderService.wasteFrontList(item);
+        List<ItemDto> list = orderService.wasteFrontList(item);
         model.addAttribute("list", list);
         return "order/item";
     }
 
     @PostMapping("/item")
-    public String orderWaste(Model model, OrderForm parameter) {
-        Order orderWaste = orderService.order(parameter);
-        model.addAttribute("order", orderWaste);
+    public String orderItem(Model model, @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")OrderForm parameter) {
+        Order orderItem = orderService.order(parameter);
+        model.addAttribute("order", orderItem);
         model.addAttribute("resultList", parameter.getResultList());
 //        parameter.getResultList();
         return "order/confirm";
     }
 
-    @PostMapping("/waste_complete")
-    public String wasteComplete() {
-        return "order/complete";
-    }
 
     @GetMapping("/detail")
-    public String orderDetail(Model model, OrderForm parameter) {
+    public String orderDetail(Model model, OrderForm parameter, String userId) {
         OrderDto orderDto = orderService.orderDetail(parameter.getOrderId());
         model.addAttribute("order", orderDto);
         return "order/detail";

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: head('공지사항')">>
+    <meta charset="UTF-8">
+    <title th:text="${title}">공지사항</title>
+</head>
+<body th:align="center">
+<nav class="py-2 bg-light border-bottom"
+     th:replace="/fragments/layout.html :: menu">
+</nav>
+<header class="py-3 mb-4 border-bottom"
+        th:replace="/fragments/layout.html :: header">
+</header>
+<div class="p-3 mb-2 bg-light rounded-1">
+    <div class="d-flex justify-content-center">
+        <h3 class="fw-bold">공지사항</h3>
+    </div>
+</div>
+<form th:action="update" method="post">
+    <input type="hidden" name="noticeNo" th:value="${noticeUpdate.noticeNo}">
+    <div class="container">
+        <table class="table">
+            <tr>
+                <td th:text="제목"></td>
+                <td><input name="noticeTitle" type="text" class="form-control" th:value="${noticeUpdate.noticeTitle}" required></td>
+            </tr>
+            <tr>
+                <td th:text="작성자"></td>
+                <td><input type="text" name="noticeWriteName" class="form-control-plaintext" th:value="${noticeUpdate.noticeWriteName}" readonly></td>
+            </tr>
+            <tr>
+                <td th:text="내용"></td>
+                <td><textarea name="noticeContents" class="form-control h-25" rows="10" th:value="${noticeUpdate.noticeContents}" required></textarea></td>
+            </tr>
+        </table>
+    </div>
+    <div class="d-flex justify-content-md-center">
+        <button type="submit" class="btn btn-primary">게시글 수정</button>
+    </div>
+</form>
+</div>
+</body>
+</html>

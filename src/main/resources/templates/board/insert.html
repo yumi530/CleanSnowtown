@@ -16,34 +16,38 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
         <h3  class="fw-bold">수거요청 등록</h3>
     </div>
 </div>
-<form th:action="insert" method="post" enctype="multipart/form-data">
+
     <div class="container">
-        <table class="table">
-<!--    <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">-->
-        <tr>
+            <form th:action="insert" method="post" enctype="multipart/form-data">
+                <table class="table">
+                    <tr>
             <td th:text="제목"></td>
-            <td><input name="title" type="text" size="150" required></td>
+            <td><input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." required></td>
         </tr>
         <tr>
             <td th:text="작성자"></td>
 <!--            <td><input name="writeName" type="text" size="10"></td>-->
             <td><span sec:authentication="principal.username"></span> </td>
         </tr>
-        <tr>
+                    <tr>
             <td th:text="내용"></td>
-            <td><textarea name="contents" cols="150" rows="10" required></textarea></td>
+            <td><textarea class="form-control h-25" rows="10" name="contents" placeholder="내용을 입력하세요." required></textarea></td>
         </tr>
             <tr>
-            <!--파일 선택추가-->
-                <td th:text="파일"></td>
-                <td><input type="file" name="file"></td> <!--name이름을 controller의 매개변수 이름과 동일하게 설정-->
+                <div class="mb-3">
+                    <td><label for="file" class="form-label">파일 선택</label></td>
+                    <td><input class="form-control" type="file" id="file"></td>
+                </div>
             </tr>
     </table>
-    </div>
+
     <div class="d-flex justify-content-md-center">
         <button type="submit" class="btn btn-primary">게시글 등록</button>
     </div>
 </form>
+    </div>
+</div>
+
 <br>
 <div class="d-flex justify-content-center">
     <a th:href="@{list}">글 목록 보기</a>

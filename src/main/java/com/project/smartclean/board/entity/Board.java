@@ -1,22 +1,17 @@
 package com.project.smartclean.board.entity;
 
-import com.project.smartclean.member.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import static javax.persistence.GenerationType.AUTO;
-import static javax.persistence.GenerationType.IDENTITY;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString(exclude = "member")
 @Builder
 @Entity
 public class Board {
@@ -28,21 +23,22 @@ public class Board {
     private String contents;
     private int cnt;
     private LocalDateTime writeDate;
+
     private LocalDateTime updateDate;
- //  @GeneratedValue(strategy = IDENTITY)
-   private String writeName;
+    //  @GeneratedValue(strategy = IDENTITY)
+    private String writeName;
     //private String userId;
 
     private String filename;
     private String filepath;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Member member;
+    //    @ManyToOne
+//    @JoinColumn(name = "user_id")
+    private String userId;
 
-    @OneToMany(mappedBy = "board" ,cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    @OrderBy("commentId asc")
-    private List<Comment> commentList = new ArrayList<>();
+//    @OneToMany(mappedBy = "board" ,cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+//    @OrderBy("commentId asc")
+//    private List<Comment> commentList = new ArrayList<>();
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id")

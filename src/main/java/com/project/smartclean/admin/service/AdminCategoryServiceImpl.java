@@ -1,7 +1,8 @@
 package com.project.smartclean.admin.service;
 
+import com.project.smartclean.admin.repository.CategoryRepository;
 import com.project.smartclean.order.dto.DistrictsDto;
-import com.project.smartclean.order.dto.WasteDto;
+import com.project.smartclean.order.dto.ItemDto;
 import com.project.smartclean.order.entity.Districts;
 import com.project.smartclean.order.entity.Item;
 import com.project.smartclean.order.repository.DistrictsRepository;
@@ -17,17 +18,18 @@ import java.util.Optional;
 public class AdminCategoryServiceImpl implements AdminCategoryService {
     private final ItemRepository itemRepository;
     private final DistrictsRepository districtsRepository;
+    private final CategoryRepository categoryRepository;
 
 
 
     @Override
-    public List<WasteDto>list() {
+    public List<ItemDto>list() {
         List<Item> items = itemRepository.findAll();
-        return WasteDto.of(items);
+        return ItemDto.of(items);
     }
 
     @Override
-    public void addWaste(WasteDto parameter) {
+    public void addWaste(ItemDto parameter) {
         Item newItem = Item.builder()
                 .itemId(parameter.getItemId())
                 .category(parameter.getCategory())
@@ -39,14 +41,14 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     }
 
     @Override
-    public void deleteWaste(WasteDto parameter) {
+    public void deleteWaste(ItemDto parameter) {
 
         itemRepository.deleteById(parameter.getItemId());
 
     }
 
     @Override
-    public void updateWaste(WasteDto parameter) {
+    public void updateWaste(ItemDto parameter) {
         Optional<Item> optionalItem = itemRepository.findById(parameter.getItemId());
         if (optionalItem.isPresent()) {
             Item item = optionalItem.get();

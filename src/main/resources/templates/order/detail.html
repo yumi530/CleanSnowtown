@@ -16,10 +16,12 @@
             <div th:text="${order.orderId}"></div>
             주문일시
             <div th:text="${order.orderDate}"></div>
-<!--            주문내역-->
-<!--            <div th:text="${order.itemName}"></div>-->
+            주문내역
+            <div th:text="${order.itemName}"></div>
              배출예정일시
             <div th:text="${order.disposeDate}"></div>
+            주문상태
+            <div th:text="${order.orderStatus}"></div>
             수거상태
             <div th:text="${order.pickupStatus}"></div>
     </div>

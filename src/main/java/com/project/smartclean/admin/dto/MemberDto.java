@@ -26,6 +26,7 @@ public class MemberDto {
     private String verifiedKey;
     String userStatus;
     private boolean adminYn;
+    private boolean centerYn;
     private String roles;
     private String resetPasswordKey;
     private LocalDateTime resetPasswordLimitDt;
@@ -33,7 +34,7 @@ public class MemberDto {
     private String address2;
     private String address3;
     private String postcode;
-    private int seq;
+    private long seq;
 
     public static MemberDto of(Member member) {
 
@@ -55,8 +56,9 @@ public class MemberDto {
                 .resetPasswordKey(member.getResetPasswordKey())
                 .resetPasswordLimitDt(member.getResetPasswordLimitDt())
                 .adminYn(member.isAdminYn())
+                .centerYn(member.isCenterYn())
                 .userStatus(member.getUserStatus())
-                .seq(member.getSeq())
+                //.seq(member.getSeq())
                 .build();
     }
 }

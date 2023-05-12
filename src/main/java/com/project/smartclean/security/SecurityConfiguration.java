@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,12 +18,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfiguration {
     private final MemberService memberService;
 //    private HttpSecurity http;
 //    private BCryptPasswordEncoder passwordEncoder;
-
-
 
     @Bean
     UserAuthenticationFailureHandler getFailureHandler() {
@@ -44,21 +44,29 @@ public class SecurityConfiguration {
         http
                 .csrf().disable();
 
+
+
         http
+                .httpBasic()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/", "/member/register","member/verify","board/list")
                 .permitAll();
 
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/admin/**")
-//                .hasAuthority("ROLE_ADMIN");
-
         http
                 .authorizeRequests()
-                .antMatchers("/order/**","/board/**","/admin/**")
-                .hasAuthority("ROLE_USER");
+                .antMatchers("/admin/**")
+                .hasAuthority("ROLE_ADMIN");
 
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/center/**")
+//                .hasAuthority("ROLE_CENTER");
+
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/order/**","/board/**")
+//                .hasAuthority("ROLE_USER");
 
         http
                 .formLogin()

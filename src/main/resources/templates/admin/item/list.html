@@ -3,6 +3,7 @@
 <head th:replace="fragments/layout.html :: head('대형폐기물 관리')">
     <meta charset="UTF-8">
     <title th:text="${title}">대형 폐기물 관리</title>
+
 </head>
 
 <body th:align="center">
@@ -50,9 +51,9 @@
         </thead>
         <tbody>
         <tr th:each="x : ${list}">
-            <td th:text="${x.itemId}">
-                <input type="hidden" name="id" th:value="${x.itemId}"/>
-                <p th:text="${x.itemId}">1</p>
+            <td th:text="${x?.itemId}">
+                <input type="hidden" name="id" th:value="${x?.itemId}"/>
+                <p th:text="${x?.itemId}">1</p>
             </td>
             <td>
                 <input th:value="${x.category}" type="text" name="category"/>
@@ -67,33 +68,48 @@
                 <input th:value="${x.price}" type="text" name="price"/>
             </td>
             <td>
+<!--                <div class="inline-div">-->
+<!--                    <form id="updateForm" method="post"-->
+<!--                          action="/admin/item/update.do">-->
+<!--                        <input type="hidden" name="itemId"-->
+<!--                               th:value="${x.itemId}"/>-->
+<!--                        <input type="hidden" name="category"-->
+<!--                               th:value="${x.category}"/>-->
+<!--                        <input type="hidden" name="itemName"-->
+<!--                               th:value="${x.itemName}"/>-->
+<!--                        <input type="hidden" name="itemDetail"-->
+<!--                               th:value="${x.itemDetail}"/>-->
+<!--                        <input type="hidden" name="price"-->
+<!--                               th:value="${x.price}"/>-->
+<!--                        <button type="submit" id="updateButton">수정</button>-->
+<!--                    </form>-->
+
+
                 <div class="inline-div">
-                    <form id="updateForm" method="post"
-                          action="/admin/item/update.do">
-                        <input type="hidden" name="itemId"
-                               th:value="${x.itemId}"/>
-                        <input type="hidden" name="category"
-                               th:value="${x.category}"/>
-                        <input type="hidden" name="itemName"
-                               th:value="${x.itemName}"/>
-                        <input type="hidden" name="itemDetail"
-                               th:value="${x.itemDetail}"/>
-                        <input type="hidden" name="price"
-                               th:value="${x.price}"/>
-                        <button type="submit" id="updateButton">수정</button>
-                    </form>
+                    <button class="update-button" type="button">수정</button>
                 </div>
 
                 <div class="inline-div">
-                    <form id="deleteForm" method="post"
+                    <form name="deleteForm" method="post"
                           action="/admin/item/delete.do">
                         <input type="hidden" name="itemId"
-                               th:value="${x.itemId}"/>
+                               th:value="${x?.itemId}"/>
                         <button type="submit">삭제</button>
                     </form>
                 </div>
             </td>
         </tr>
+        <div class="inline-div">
+        <form name="updateForm" method="post" action="/admin/item/update.do">
+            <input type="hidden" name="itemId"/>
+<!--            <input type="hidden" name="itemId"-->
+<!--                   th:value="${x.itemId}"/>-->
+            <input type="hidden" name="category"/>
+            <input type="hidden" name="itemName"/>
+            <input type="hidden" name="itemDetail"/>
+            <input type="hidden" name="price" />
+        </form>
+    </div>
 
         <tr th:if="${#lists.size(list) < 1}">
             <td colspan="5">
@@ -105,15 +121,16 @@
 </div>
 </div>
 
-<script>
-    (function () {
-        const updateButton = document.getElementById("updateButton");
-        updateButton.addEventListener("click", function(e) {
-            e.preventDefault();
 
-        })
-    })();
-</script>
+<!--<script>-->
+<!--    (function () {-->
+<!--        const updateButton = document.getElementById("updateButton");-->
+<!--        updateButton.addEventListener("click", function(e) {-->
+<!--            e.preventDefault();-->
+
+<!--        })-->
+<!--    })();-->
+<!--</script>-->
 
 <footer class="container" th:fragment="foot">
     <p class="float-end"><a href="#">Back to top</a></p>

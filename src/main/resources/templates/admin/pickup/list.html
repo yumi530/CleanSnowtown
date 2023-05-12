@@ -1,18 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/layout.html :: head('관리자 수거 관리')">
 <head>
     <meta charset="UTF-8">
-    <title>수거 관리자 화면</title>
+    <title th:text="${title}">수거 관리자 화면</title>
 </head>
 <body>
-<h3>수거 신청 내역</h3>
+<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu-admin">
+</nav>
+<div class="p-3 mb-2 bg-light rounded-1">
+    <div class="d-flex justify-content-center">
+        <h3  class="fw-bold">수거 신청 내역</h3>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end">
 <!--<div>-->
 <!--    주문번호 : <span th:text="${order.orderNumber}"-->
 <!--                 th:value="${order.orderNumber}"></span>-->
 <!--</div>-->
 
-<table>
-    <thead>
+    <form th:action="@{/admin/pickup/list.do}" method="get">
+        <select name="searchCondition">
+            <option value="districtName">행정동</option>
+            <option value="orderId">주문번호</option>
+            <option value="orderUserName">주문자</option>
+            <option value="orderUserPhone">연락처</option>
+        </select>
+        <input name="searchKeyword" type="text"/>
+        <button type="submit" class="btn btn-secondary">검색</button>
+    </form>
+</div>
+<div class="container">
+    <table class="table table-hover">
+        <thead class="text-center">
     <tr>
         <td>행정동</td>
         <td>주문번호</td>
@@ -22,7 +44,7 @@
         <td>수거상태</td>
     </tr>
     </thead>
-    <tbody>
+    <tbody  class="text-center">
     <tr th:each="order:${list}">
         <td th:text="${order.districtName}"></td>
         <td>
@@ -39,5 +61,22 @@
     </tr>
     </tbody>
 </table>
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" th:href="@{/admin/pickup/list.do(page=0)}">
+                <span>&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item" th:each="page : ${#numbers.sequence(startPage, endPage)}">
+            <a th:if="${page != nowPage}" th:href="@{/admin/pickup/list.do(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+            <strong th:if="${page == nowPage}" th:text="${page}" style="color: rebeccapurple"></strong>
+        </li>
+        <li class="page-item">
+            <a class="page-link" th:href="@{/admin/pickup/list.do(page = ${endPage - 1})}" >
+                <span>&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>

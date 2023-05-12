@@ -1,5 +1,6 @@
 package com.project.smartclean.order.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.smartclean.order.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -21,12 +23,16 @@ public class OrderDto {
     private String itemName;
     private String address1;
     private String address2;
-    @DateTimeFormat
+//    @DateTimeFormat
+//    private LocalDateTime disposeDate;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd kk:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime disposeDate;
     private LocalDateTime orderDate;
     private Long districtCode;
     private String districtName;
     private String pickupStatus;
+    private String orderStatus;
 
 
     public static OrderDto of(Order order) {
@@ -42,6 +48,7 @@ public class OrderDto {
                 .address2(order.getAddress2())
                 .orderUserPhone(order.getOrderUserPhone())
                 .pickupStatus(order.getPickupStatus())
+                .orderStatus(order.getOrderStatus())
                 .build();
     }
 

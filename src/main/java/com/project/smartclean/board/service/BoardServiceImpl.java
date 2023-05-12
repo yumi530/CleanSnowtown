@@ -14,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -39,34 +38,62 @@ public class BoardServiceImpl implements BoardService {
 
         file.transferTo(saveFile);
 
-             Board insertBoard = Board.builder()
+        Board insertBoard = Board.builder()
                 .boardNo(board.getBoardNo())
                 .title(board.getTitle())
                 .contents(board.getContents())
                 .writeName(board.getWriteName())
-                .writeDate(LocalDateTime.now())
-                 .filename(fileName)
-                 .filepath("/files/"+fileName)
+//                .writeDate(LocalDateTime.now())
+                .filename(fileName)
+                .filepath("/files/" + fileName)
                 .build();
         boardRepository.save(insertBoard);
     }
 
     @Override
     public Board readBoard(Long boardNo) {
-       Board read = boardRepository.findById(boardNo).get();
+
+        Board read = boardRepository.findById(boardNo).get();
         read.setCnt(read.getCnt());
         Board result = boardRepository.save(read);
         return result;
     }
 
     @Override
-    public void updateBoard(Board board) {
-        Board findBoard = boardRepository.findById(board.getBoardNo()).get();
+    public Board findById(Long boardNo) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardNo);
+        if (optionalBoard.isPresent()) {
+            Board board = optionalBoard.get();
+            return board;
+        } else {
+            return null;
+        }
+    }
 
+
+//    @Override
+//    public Board readBoard(Board board, User user, Member member) {
+//        if (board.getWriteName() == user.getUsername() || member.isAdminYn()) {
+//            Board read = boardRepository.findById(board.getBoardNo()).get();
+//            read.setCnt(read.getCnt());
+//            Board result = boardRepository.save(read);
+//            return result;
+//        } return null;
+//    }
+
+    @Override
+    public Board updateBoard(Board board) {
+        Board findBoard = boardRepository.findById(board.getBoardNo()).get();
+        findBoard.setBoardNo(board.getBoardNo());
         findBoard.setTitle(board.getTitle());
+        findBoard.setWriteName(board.getWriteName());
         findBoard.setContents(board.getContents());
-        findBoard.setUpdateDate(LocalDateTime.now());
+        findBoard.setCnt(board.getCnt());
+        findBoard.setFilename(board.getFilename());
+        findBoard.setFilepath(board.getFilepath());
+//        findBoard.setUpdateDate(LocalDateTime.now());
         boardRepository.save(findBoard);
+        return findBoard;
     }
 
     @Override
@@ -81,15 +108,15 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Page<Board> getBoardList(Search search, Pageable pageable) {
-            BooleanBuilder builder = new BooleanBuilder();
-    QBoard qBoard = QBoard.board;
-    if (search.getSearchCondition().equals("title")) {
-        builder.and(qBoard.title.like("%" + search.getSearchKeyword() + "%"));
-    } else if (search.getSearchCondition().equals("writeName")) {
-        builder.and(qBoard.writeName.like("%" + search.getSearchKeyword() + "%"));
-    }else if (search.getSearchCondition().equals("contents")) {
-        builder.and(qBoard.contents.like("%" + search.getSearchKeyword() + "%"));
-    }
+        BooleanBuilder builder = new BooleanBuilder();
+        QBoard qBoard = QBoard.board;
+        if (search.getSearchCondition().equals("title")) {
+            builder.and(qBoard.title.like("%" + search.getSearchKeyword() + "%"));
+        } else if (search.getSearchCondition().equals("writeName")) {
+            builder.and(qBoard.writeName.like("%" + search.getSearchKeyword() + "%"));
+        } else if (search.getSearchCondition().equals("contents")) {
+            builder.and(qBoard.contents.like("%" + search.getSearchKeyword() + "%"));
+        }
         return boardRepository.findAll(builder, pageable);
     }
 }

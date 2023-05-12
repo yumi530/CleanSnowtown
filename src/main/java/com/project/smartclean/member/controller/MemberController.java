@@ -1,8 +1,6 @@
 package com.project.smartclean.member.controller;
 
 import com.project.smartclean.admin.dto.MemberDto;
-import com.project.smartclean.board.entity.Board;
-import com.project.smartclean.member.entity.Member;
 import com.project.smartclean.member.model.ResetPasswordInput;
 import com.project.smartclean.member.model.ServiceResult;
 import com.project.smartclean.member.model.SignUpForm;
@@ -14,10 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -82,16 +77,16 @@ public class MemberController {
         return "member/mypage";
     }
 
-@GetMapping("/password")
-public String memberPassword(Model model, Principal principal) {
+    @GetMapping("/password")
+    public String memberPassword(Model model, Principal principal) {
 
-    String userId = principal.getName();
-    MemberDto detail = memberService.detail(userId);
+        String userId = principal.getName();
+        MemberDto detail = memberService.detail(userId);
 
-    model.addAttribute("detail", detail);
+        model.addAttribute("detail", detail);
 
-    return "member/password";
-}
+        return "member/password";
+    }
 
     @PostMapping("/password")
     public String memberPasswordSubmit(Model model
@@ -111,17 +106,16 @@ public String memberPassword(Model model, Principal principal) {
     }
 
     @GetMapping("/withdraw")
-    public String withdraw() {
+    public String withdraw(Model model, @RequestParam("id") String userId) {
+        model.addAttribute("userId", userId);
         return "member/withdraw";
     }
 
     @PostMapping("/withdraw")
-    public String withdrawSubmit(Model model, SignUpForm parameter, @AuthenticationPrincipal User user){
-
-        //String userId = principal.getName();
-
-        ServiceResult result = memberService.withdraw(user.getUsername(), parameter.getPassword());
-        model.addAttribute("user",user.getUsername());
+    public String withdrawSubmit(Model model, SignUpForm parameter) {
+        
+        MemberDto memberDto = memberService.detail(parameter.getUserId());
+        ServiceResult result = memberService.withdraw(parameter.getUserId(), memberDto.getPassword());
 
         if (!result.isResult()) {
             model.addAttribute("message", result.getMessage());
@@ -130,7 +124,7 @@ public String memberPassword(Model model, Principal principal) {
 
         return "redirect:/member/logout";
     }
-    }
+}
 
 
 

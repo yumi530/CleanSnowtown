@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments/layout.html :: head('FAQ')">
+    <meta charset="UTF-8">
+    <title th:text="${title}">FAQ</title>
+</head>
+<body th:align="center">
+<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu">
+</nav>
+<header class="py-3 mb-4 border-bottom" th:replace="/fragments/layout.html :: header">
+</header>
+<div class="p-3 mb-2 bg-light rounded-1">
+    <div class="d-flex justify-content-center">
+        <h3  class="fw-bold">FAQ</h3>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end">
+        <form th:action="@{/faq/list}" method="get">
+<select name="searchCondition">
+    <option value="faqTitle">제목</option>
+    <option value="faqContents">내용</option>
+</select>
+<input name="searchKeyword" type="text"/>
+            <button type="submit" class="btn btn-secondary">검색</button>
+                </form>
+            </div>
+
+<div class="container">
+    <table class="table">
+<tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>작성일</th>
+    <th>조회수</th>
+</tr>
+<tr th:each="faq : ${list}">
+    <td th:text="${faq.faqNo}">
+    <td><a th:href="@{/faq/read(faqNo=${faq.faqNo})}"
+           th:text="${faq.faqTitle}"></a> </td>
+    <td th:text="${faq.faqWriteName}">
+    <td th:text="${faq.faqWriteDate}">
+    <td th:text="${faq.faqCnt}">
+</tr>
+</table>
+
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/faq/list(page=0)}">
+                    <span>&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <a th:if="${page != nowPage}" th:href="@{/faq/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+                <strong th:if="${page == nowPage}" th:text="${page}" style="color: rebeccapurple"></strong>
+        </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/faq/list(page = ${endPage - 1})}" >
+                    <span>&raquo;</span>
+                </a>
+            </li>
+        </ul>
+
+
+</div>
+<br>
+<form method="get" action="/faq/insert" class="d-flex justify-content-md-center">
+<button type="submit" class="btn btn-primary">글쓰기</button>
+</form>
+<!--<a th:href="insert">새글 등록</a>-->
+<footer class="container" th:fragment="foot">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>
+
+</body>
+</html>

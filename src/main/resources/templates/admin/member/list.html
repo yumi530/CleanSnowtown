@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/layout.html :: head('관리자 회원 관리')">
     <meta charset="UTF-8">
     <title th:text="${title}"  >관리자 회원관리</title>
@@ -16,6 +17,7 @@
                 <h3  class="fw-bold">회원 관리</h3>
             </div>
         </div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">ROLE_ADMIN 권한이 있습니다.</div>
     <div class="d-flex justify-content-end">
         <form th:action="@{/admin/member/list.do}" method="get">
             <select name="searchCondition">
@@ -31,7 +33,7 @@
         <table class="table">
         <thead class="text-center">
         <tr>
-            <th>NO</th>
+<!--            <th>행정동</th>-->
             <th>
                 아이디(이메일)
             </th>
@@ -54,24 +56,24 @@
         </thead>
         <tbody class="text-center">
         <tr th:each="x : ${list}">
-            <td th:text="${x.seq}">1</td>
+<!--            <td th:text="${x.address3}"></td>-->
             <td>
                 <a th:text="${x.userId}"
                    th:href="${'detail.do?userId=' + x.userId}">
-                    satcop@naver.com</a>
+                    </a>
             </td>
-            <td th:text="${x.name}">홍길동</td>
-            <td th:text="${x.phone}">010-1111-2222</td>
+            <td th:text="${x.name}"></td>
+            <td th:text="${x.phone}"></td>
             <td>
-                <p th:if="${x.verifiedYn}">Y</p>
-                <p th:if="${x.verifiedYn eq false}">N</p>
-            </td>
-            <td>
-                <p th:text="${x.createdAt}">2021.01.01</p>
+                <p th:if="${x.verifiedYn}"></p>
+                <p th:if="${x.verifiedYn eq false}"></p>
             </td>
             <td>
-                <p th:if="${x.adminYn}">Y</p>
-                <p th:if="${x.adminYn eq false}">N</p>
+                <p th:text="${x.createdAt}"></p>
+            </td>
+            <td>
+                <p th:if="${x.adminYn}"></p>
+                <p th:if="${x.adminYn eq false}"></p>
             </td>
         </tr>
         </tbody>
@@ -83,7 +85,7 @@
                 </a>
             </li>
             <li class="page-item" th:each="page : ${#numbers.sequence(startPage, endPage)}">
-                <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+                <a th:if="${page != nowPage}" th:href="@{/admin/member/list.do(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
                 <strong th:if="${page == nowPage}" th:text="${page}" style="color: rebeccapurple"></strong>
             </li>
             <li class="page-item">

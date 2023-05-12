@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: head('이용 안내')">
+    <meta charset="UTF-8">
+    <title th:text="${title}">이용 안내</title>
+</head>
+<body>
+<nav class="py-2 bg-light border-bottom"
+     th:replace="/fragments/layout.html :: menu">
+</nav>
+<header class="py-3 mb-4 border-bottom"
+        th:replace="/fragments/layout.html :: header">
+</header>
+<div class="container">
+
+    <div>
+        <h4 class="fw-bold" style="margin-bottom: 50px;">이용 안내</h4>
+    </div>
+    <div class="border" style="margin-bottom: 30px;">
+        <p class="fw-bold" style="padding-top: 10px;">대형폐기물 및 폐가전 배출 이용 안내</p>
+
+<!--        <p>회원님의 개인정보는 모두 삭제되며 복구되지 않습니다. 단, 관계법령에 따라 회사가 보관하여야 하는 정보는 일정 기간 보관-->
+<!--            처리합니다.<br>-->
+<!--            부정한 목적으로 탈퇴 후 재가입을 한 경우에는 이용에 제한이 있을 수 있습니다.</p>-->
+        <span>안내 사항</span>
+        <ul>
+            <li>대형폐기물 배출 신고 절차</li>
+            <p>1. 인터넷(모바일 기기 포함)으로 신고</p>
+            <p>➀ 배출 신청 페이지로 이동</p>
+            <p>➁ 회원가입 및 배출 신청</p>
+            <p>➂ 배출 물품에 주문번호 수기작성해서 부착</p>
+            <p>➃ 배출 신고시 기입한 배출 장소에 배출</p>
+            <p>➄ 수거 반려시 수거 반려 사유에 따라서 재배출 후 수거 요청글 작성  </p>
+            <p>2.  주민센터 방문 신고</p>
+            <p>➀ 가까운 주민센터 방문하여 신청</p>
+            <p>➁ 배부 받은 배출증을 부착
+            <p>➂ 배출 신고시 기입한 배출 장소에 배출</p>
+            <p>➃수거 반려시 수거 반려 사유에 따라서 재배출 후 수거 요청글 작성</p>
+            <p>• 대형폐기물 배출/수거시간</p>
+            <p>‒ 매주 월요일 ~ 금요일 (09:00 ~ 15:00)</p>
+        </ul>
+        <ul>
+            <li>폐가전 배출 신고 절차</li>
+            <p>1. 대형가전(예: 냉장고, 세탁기 등) + 폐소형가전 소량
+                또는 폐소형가전 5개 이상인 경우 무료신청 가능</p>
+            <p>- 인터넷(https://www.15990903.or.kr) 또는 콜센터(☎ 1599-0903) 이용</p>
+            <p>2. 폐소형가전(예: 청소기, 드라이기 등) 5개 미만 배출 신청은 본 홈페이지를 이용하거나 주민센터 방문하여 신청 부탁드립니다.</p>
+            <p>- (대단지)아파트 등 자체 재활용 처리하시는 곳의 경우, 관리소에 문의 후 재활용으로 배출하여 주시기 바랍니다.</p>
+            <p>3. 폐휴대폰(+충전기, 배터리) 배출 신청은
+                - 나눔폰(https://나눔폰.kr/) 사이트 참고하여 택배로 처리</p>
+<!--            -->
+<!--            • 대형폐기물 이것만은 꼭 지켜주세요!!-->
+<!--            ‒ 대형폐기물은 반드시 배출 신고 및 결제 완료 후 배출하여야 합니다.-->
+<!--            ‒ 대형폐기물 배출 신고 방법은 아래 절차를 확인시기 바랍니다.-->
+<!--            ‒ 전자제품 구입시 포장재와 폐전자제품은 판매처가 회수하도록 합니다.-->
+
+        </ul>
+<!--        <ul>-->
+<!--            <li>소비자의 불만 또는 분쟁 처리에 관한 기록</li>-->
+<!--            <p>보존근거 : 전자상거래 등에서의 소비자보호에 관한 법률 보존기간</p>-->
+<!--        </ul>-->
+    </div>
+
+    <div style>
+        <a class="link-primary" href="/">홈으로 이동</a>
+    </div>
+</div>
+
+<footer class="container" th:fragment="foot">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot;
+        <a href="#">Terms</a></p>
+</footer>
+</body>
+</html>
