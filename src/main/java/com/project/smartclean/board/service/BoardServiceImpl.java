@@ -44,6 +44,7 @@ public class BoardServiceImpl implements BoardService {
                 .contents(board.getContents())
                 .writeName(board.getWriteName())
 //                .writeDate(LocalDateTime.now())
+                .cnt(0)
                 .filename(fileName)
                 .filepath("/files/" + fileName)
                 .build();
@@ -52,11 +53,9 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Board readBoard(Long boardNo) {
-
-        Board read = boardRepository.findById(boardNo).get();
-        read.setCnt(read.getCnt());
-        Board result = boardRepository.save(read);
-        return result;
+        boardRepository.updateViews(boardNo);
+        Board board = boardRepository.findById(boardNo).get();
+        return board;
     }
 
     @Override
@@ -112,9 +111,11 @@ public class BoardServiceImpl implements BoardService {
         QBoard qBoard = QBoard.board;
         if (search.getSearchCondition().equals("title")) {
             builder.and(qBoard.title.like("%" + search.getSearchKeyword() + "%"));
-        } else if (search.getSearchCondition().equals("writeName")) {
-            builder.and(qBoard.writeName.like("%" + search.getSearchKeyword() + "%"));
-        } else if (search.getSearchCondition().equals("contents")) {
+        }
+//        else if (search.getSearchCondition().equals("writeName")) {
+//            builder.and(qBoard.writeName.like("%" + search.getSearchKeyword() + "%"));
+//        }
+        else if (search.getSearchCondition().equals("contents")) {
             builder.and(qBoard.contents.like("%" + search.getSearchKeyword() + "%"));
         }
         return boardRepository.findAll(builder, pageable);

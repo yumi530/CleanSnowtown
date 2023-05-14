@@ -5,9 +5,6 @@ import com.project.smartclean.board.entity.Search;
 import com.project.smartclean.faq.dto.FaqDto;
 import com.project.smartclean.faq.entity.Faq;
 import com.project.smartclean.faq.service.FaqService;
-import com.project.smartclean.notice.dto.NoticeDto;
-import com.project.smartclean.notice.entity.Notice;
-import com.project.smartclean.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -68,7 +65,6 @@ public class FaqController {
     @GetMapping("/read")
     public String readFaq(Model model, Long faqNo) {
         FaqDto faqDto = faqService.readFaq(faqNo);
-        faqService.updateView(faqNo);
         model.addAttribute("faq", faqDto);
         return "faq/read";
     }

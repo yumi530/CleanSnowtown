@@ -1,6 +1,5 @@
 package com.project.smartclean.notice.dto;
 
-import com.project.smartclean.member.entity.Member;
 import com.project.smartclean.notice.entity.Notice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +28,7 @@ public class NoticeDto {
                 .noticeNo(notice.getNoticeNo())
                 .noticeTitle(notice.getNoticeTitle())
                 .noticeContents(notice.getNoticeContents())
-//                .noticeCnt(notice.getNoticeCnt())
+                .noticeCnt(notice.getNoticeCnt())
                 .noticeWriteDate(LocalDateTime.now())
                 .noticeUpdateDate(LocalDateTime.now())
                 .noticeWriteName(notice.getNoticeWriteName())

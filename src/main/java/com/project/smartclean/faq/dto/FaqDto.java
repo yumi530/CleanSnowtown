@@ -1,7 +1,6 @@
 package com.project.smartclean.faq.dto;
 
 import com.project.smartclean.faq.entity.Faq;
-import com.project.smartclean.notice.entity.Notice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +28,7 @@ public class FaqDto {
                 .faqNo(faq.getFaqNo())
                 .faqTitle(faq.getFaqTitle())
                 .faqContents(faq.getFaqContents())
+                .faqCnt(faq.getFaqCnt())
                 .faqWriteDate(LocalDateTime.now())
                 .faqUpdateDate(LocalDateTime.now())
                 .faqWriteName(faq.getFaqWriteName())

@@ -5,13 +5,14 @@ import com.project.smartclean.board.entity.Board;
 import com.project.smartclean.board.entity.Search;
 import com.project.smartclean.board.service.BoardService;
 import com.project.smartclean.board.service.CommentService;
+import com.project.smartclean.member.entity.Member;
+import com.project.smartclean.member.repository.MemberRepository;
 import com.project.smartclean.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -33,6 +34,7 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
     private final CommentService commentService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/list")
     public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort = "boardNo", direction = Sort.Direction.DESC) Pageable pageable, Search search) {
@@ -62,7 +64,8 @@ public class BoardController {
     @PostMapping("/insert")
     public String insertBoardSubmit(Board board, @AuthenticationPrincipal User user, MultipartFile file) {
         //MemberDto memberDto = memberService.detail(user.getUsername());
-        board.setWriteName(user.getUsername());
+        Member member = memberRepository.findById(user.getUsername()).get();
+        board.setWriteName(member);
         try {
             boardService.insertBoard(board, file);
         } catch (IOException e) {
@@ -74,10 +77,9 @@ public class BoardController {
     @GetMapping("/read")
     public String readBoard(Model model, Long boardNo) {
         Board board = boardService.readBoard(boardNo);
-        boardService.updateView(boardNo);
         List<CommentDto> commentDtoList = commentService.findAll(boardNo);
-        model.addAttribute("commentList", commentDtoList);
         model.addAttribute("board", board);
+        model.addAttribute("commentList", commentDtoList);
 
         /*
         if (result != null) {
