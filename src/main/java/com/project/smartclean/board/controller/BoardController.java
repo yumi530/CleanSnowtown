@@ -60,7 +60,7 @@ public class BoardController {
     @PostMapping("/insert")
     public String insertBoardSubmit(Board board, @AuthenticationPrincipal User user, MultipartFile file) {
         //MemberDto memberDto = memberService.detail(user.getUsername());
-        board.setWriteName(user.getUsername());
+//        board.setWriteName(user.getUsername());
         try {
             boardService.insertBoard(board, file);
         } catch (IOException e) {
