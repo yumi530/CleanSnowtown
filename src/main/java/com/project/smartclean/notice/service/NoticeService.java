@@ -12,9 +12,10 @@ public interface NoticeService {
     void insertNotice(NoticeDto noticeDto);
 
     NoticeDto readNotice(Long noticeNo);
+
 //    Notice readNotice(Long noticeDto);
 
-    void updateView(Long noticeNo);
+//    void updateView(Long noticeNo);
 
     NoticeDto updateNotice(NoticeDto noticeDto);
 

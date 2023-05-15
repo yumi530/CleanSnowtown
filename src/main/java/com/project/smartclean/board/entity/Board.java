@@ -1,10 +1,9 @@
 package com.project.smartclean.board.entity;
 
+import com.project.smartclean.member.entity.Member;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -26,7 +25,10 @@ public class Board {
 
     private LocalDateTime updateDate;
     //  @GeneratedValue(strategy = IDENTITY)
-    private String writeName;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Member writeName;
     //private String userId;
 
     private String filename;
@@ -34,7 +36,7 @@ public class Board {
 
     //    @ManyToOne
 //    @JoinColumn(name = "user_id")
-    private String userId;
+//    private String userId;
 
 //    @OneToMany(mappedBy = "board" ,cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
 //    @OrderBy("commentId asc")

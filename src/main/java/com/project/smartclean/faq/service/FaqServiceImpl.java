@@ -1,14 +1,10 @@
 package com.project.smartclean.faq.service;
+
 import com.project.smartclean.board.entity.Search;
 import com.project.smartclean.faq.dto.FaqDto;
 import com.project.smartclean.faq.entity.Faq;
 import com.project.smartclean.faq.entity.QFaq;
 import com.project.smartclean.faq.repository.FaqRepository;
-import com.project.smartclean.notice.dto.NoticeDto;
-import com.project.smartclean.notice.entity.Notice;
-import com.project.smartclean.notice.entity.QNotice;
-import com.project.smartclean.notice.repository.NoticeRepository;
-import com.project.smartclean.notice.service.NoticeService;
 import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -37,7 +33,6 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public void insertFaq(FaqDto faqDto) {
-
         Faq faq = Faq.builder()
                 .faqNo(faqDto.getFaqNo())
                 .faqWriteName(faqDto.getFaqWriteName())
@@ -50,14 +45,9 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public FaqDto readFaq(Long faqNo) {
-        Faq faq = faqRepository.findById(faqNo).get();
-        faq.setFaqCnt(faq.getFaqCnt());
-        faqRepository.save(faq);
-        return FaqDto.of(faq);
-    }
-    @Override
-    public void updateView(Long faqNo) {
         faqRepository.updateViews(faqNo);
+        Faq faq = faqRepository.findById(faqNo).get();
+        return FaqDto.of(faq);
     }
 
     @Override

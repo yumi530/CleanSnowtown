@@ -19,12 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.transaction.Transactional;
-import java.io.IOException;
-import java.util.List;
-
 @Controller
 @RequestMapping("/notice")
 @RequiredArgsConstructor
@@ -65,15 +59,12 @@ public class NoticeController {
         return "redirect:list";
     }
 
-    @Transactional
     @GetMapping("/read")
     public String readNotice(Model model, Long noticeNo) {
         NoticeDto noticeDto = noticeService.readNotice(noticeNo);
-        noticeService.updateView(noticeNo);
         model.addAttribute("notice", noticeDto);
         return "notice/read";
     }
-
 
     @GetMapping("/update")
     public String updateNotice(Long noticeNo, Model model) {

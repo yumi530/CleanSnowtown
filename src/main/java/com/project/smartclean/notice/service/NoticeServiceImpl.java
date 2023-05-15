@@ -1,4 +1,5 @@
 package com.project.smartclean.notice.service;
+
 import com.project.smartclean.board.entity.Search;
 import com.project.smartclean.notice.dto.NoticeDto;
 import com.project.smartclean.notice.entity.Notice;
@@ -8,10 +9,9 @@ import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class NoticeServiceImpl implements NoticeService {
     private final NoticeRepository noticeRepository;
 
-    @Override
+    @Transactional(readOnly = true)
     public Page<Notice> getNoticeList(Search search, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         QNotice qNotice = QNotice.notice;
@@ -32,40 +32,28 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeRepository.findAll(builder, pageable);
     }
 
-    @Override
+    @Transactional
     public void insertNotice(NoticeDto noticeDto) {
         Notice notice = Notice.builder()
                 .noticeNo(noticeDto.getNoticeNo())
                 .noticeWriteName(noticeDto.getNoticeWriteName())
                 .noticeTitle(noticeDto.getNoticeTitle())
                 .noticeContents(noticeDto.getNoticeContents())
-//                .noticeCnt(noticeDto.getNoticeCnt())
+                .noticeCnt(0)
                 .noticeWriteDate(LocalDateTime.now())
+                .noticeUpdateDate(LocalDateTime.now())
                 .build();
         noticeRepository.save(notice);
     }
 
-    @Override
+    @Transactional
     public NoticeDto readNotice(Long noticeNo) {
+        noticeRepository.updateViews(noticeNo);
         Notice notice = noticeRepository.findById(noticeNo).get();
-        notice.setNoticeCnt(notice.getNoticeCnt());
-        noticeRepository.save(notice);
         return NoticeDto.of(notice);
     }
-    @Override
-    public void updateView(Long boardNo) {
-        noticeRepository.updateViews(boardNo);
-    }
 
-//    @Override
-//    public Notice readNotice(Long noticeNo) {
-//        Notice notice = noticeRepository.findById(noticeNo).get();
-//        notice.setNoticeCnt(notice.getNoticeCnt());
-//        Notice result = noticeRepository.save(notice);
-//        return result;
-//    }
-
-    @Override
+    @Transactional
     public NoticeDto updateNotice(NoticeDto noticeDto) {
         Optional<Notice> optionalNotice = noticeRepository.findById(noticeDto.getNoticeNo());
         if (!optionalNotice.isPresent()) {
@@ -81,7 +69,7 @@ public class NoticeServiceImpl implements NoticeService {
         return NoticeDto.of(result);
     }
 
-    @Override
+    @Transactional
     public void deleteNotice(NoticeDto noticeDto) {
         noticeRepository.deleteById(noticeDto.getNoticeNo());
     }

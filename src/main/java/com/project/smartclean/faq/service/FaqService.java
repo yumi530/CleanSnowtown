@@ -15,11 +15,7 @@ public interface FaqService {
 
     FaqDto readFaq(Long faqNo);
 
-
-    void updateView(Long faqNo);
-
     FaqDto updateFaq(FaqDto faqDto);
-
 
     void deleteFaq(FaqDto faqDto);
 }
