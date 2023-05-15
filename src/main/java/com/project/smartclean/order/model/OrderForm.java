@@ -21,9 +21,8 @@ public class OrderForm {
     private String orderId;
     private String address1;
     private String address2;
-//    @DateTimeFormat
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime disposeDate;
+
+    private String disposeDate;
     private LocalDateTime orderDate;
     private String orderUserPhone;
     private Long districtCode;

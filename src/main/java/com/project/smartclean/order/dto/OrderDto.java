@@ -23,11 +23,7 @@ public class OrderDto {
     private String itemName;
     private String address1;
     private String address2;
-//    @DateTimeFormat
-//    private LocalDateTime disposeDate;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd kk:mm:ss")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime disposeDate;
+    private String disposeDate;
     private LocalDateTime orderDate;
     private Long districtCode;
     private String districtName;

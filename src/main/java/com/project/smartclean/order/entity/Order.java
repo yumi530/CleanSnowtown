@@ -31,9 +31,7 @@ public class Order implements PickupCode {
     //    @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "user_id")
     private String userId;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd kk:mm:ss")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime disposeDate;
+    private String disposeDate;
     private Long districtCode;
     private String districtName;
     private String pickupStatus;

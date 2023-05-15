@@ -1,6 +1,5 @@
 package com.project.smartclean.admin.controller;
 
-import com.project.smartclean.member.entity.Member;
 import com.project.smartclean.order.dto.ItemDto;
 import com.project.smartclean.order.entity.Item;
 import com.project.smartclean.order.entity.Order;
@@ -28,9 +27,6 @@ public class AdminCenterController {
         return "center/item";
     }
 
-
-
-
     @PostMapping("/item.do")
     public String orderItem(Model model, OrderForm parameter) {
         Order orderItem = orderService.order(parameter);
@@ -39,6 +35,5 @@ public class AdminCenterController {
 //        parameter.getResultList();
         return "center/confirm";
     }
-
-
+    
 }

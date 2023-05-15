@@ -14,10 +14,10 @@ public class MailConfiguration {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
         javaMailSender.setHost("smtp.naver.com");
-        javaMailSender.setUsername("yum_aily");
-        javaMailSender.setPassword("PSNPDW5LGBDN");
+        javaMailSender.setUsername("");
+        javaMailSender.setPassword("");
 
-        javaMailSender.setPort(465);
+        javaMailSender.setPort(0);
 
         javaMailSender.setJavaMailProperties(getMailProperties());
 

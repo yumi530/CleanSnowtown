@@ -42,21 +42,16 @@ public class AdminCategoryController {
         return "redirect:/admin/item/list.do";
     }
 
-
     @GetMapping("/admin/district/list.do")
     public String districtList(Model model) {
-
         List<DistrictsDto> list = categoryService.districtList();
         model.addAttribute("list", list);
-
         return "admin/district/list";
     }
 
     @PostMapping("/admin/district/add.do")
     public String addDistrictList(DistrictsDto parameter) {
-
         categoryService.addDistrict(parameter);
-
         return "redirect:/admin/district/list.do";
     }
 
@@ -71,6 +66,5 @@ public class AdminCategoryController {
         categoryService.updateDistrict(parameter);
         return "redirect:/admin/district/list.do";
     }
-
 
 }
