@@ -31,6 +31,7 @@ jobs:
     - name: Grant execute permisson for gradlew
       run: chmod +x gradlew    
     - name: Build with Gradle
-      run: ./gradlew --debug build
+      run: ./gradlew build
+#      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
