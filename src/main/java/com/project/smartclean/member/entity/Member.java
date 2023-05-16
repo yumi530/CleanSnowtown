@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Data
-@Entity(name = "member")
+@Entity
 public class Member implements MemberCode  {
     @Id
     private String userId;
@@ -55,9 +55,9 @@ public class Member implements MemberCode  {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Notice> notices = new ArrayList<>();
 
-    public Member(String username) {
-        this.userId = username;
-    }
+//    public Member(String username) {
+//        this.userId = username;
+//    }
 
 
 }

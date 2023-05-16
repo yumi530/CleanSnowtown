@@ -8,9 +8,7 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString(exclude = "member")
+@Data
 @Builder
 @Entity
 public class Board {
