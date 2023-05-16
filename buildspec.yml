@@ -1,18 +1,18 @@
-#version: 0.2
-#
-#phases:
-#  install:
-#    runtime-version:
-#      java: corretto11
-#  build:
-#    commands:
-#      - echo Build start on 'date'
-#      - chmod u+x gradlew
-#      - ./gradlew clean build
-#  post_build:
-#    commands:
-#      - echo Build completed on 'date'
-#artifacts:
-#  files:
-#    - build/libs/smartclean-*.war
-#  discard-paths: yes
+version: 0.2
+
+phases:
+  install:
+    runtime-version:
+      java: corretto11
+  build:
+    commands:
+      - echo Build start on 'date'
+      - chmod u+x gradlew
+      - ./gradlew clean build
+  post_build:
+    commands:
+      - echo Build completed on 'date'
+artifacts:
+  files:
+    - build/libs/smartclean-*.war
+  discard-paths: yes
