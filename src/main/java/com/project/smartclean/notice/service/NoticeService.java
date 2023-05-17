@@ -13,12 +13,8 @@ public interface NoticeService {
 
     NoticeDto readNotice(Long noticeNo);
 
-//    Notice readNotice(Long noticeDto);
-
-//    void updateView(Long noticeNo);
-
     NoticeDto updateNotice(NoticeDto noticeDto);
 
-
     void deleteNotice(NoticeDto noticeDto);
+    
 }

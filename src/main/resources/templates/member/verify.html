@@ -9,11 +9,19 @@
 </nav>
 <header class="py-3 mb-4 border-bottom" th:replace="/fragments/layout.html :: header">
 </header>
-<p>인증 확인 되었습니다. </p>
+<div class="container">
+    <div class="card">
+        <img src="/images/chunsik.jpeg" class="card-img-top mx-auto d-block"
+             alt="chunsik image" style="width: 24rem; height: 26rem;">
+        <div class="card-body">
+            <h5 class="card-title text-center">인증이 완료되었습니다 !</h5>
+        </div>
+    </div>
+</div>
 
 <footer class="container" th:fragment="foot">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <p class="float-end"><a href="/">Back to top</a></p>
+    <p>&copy; 2023 SnowTown. &middot;</p>
 </footer>
 </body>
 </html>

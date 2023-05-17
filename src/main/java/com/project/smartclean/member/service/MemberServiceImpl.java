@@ -81,9 +81,9 @@ public class MemberServiceImpl implements MemberService {
 
 
         String email = parameter.getUserId();
-        String subject = "Smart Clean 회원가입 인증";
-        String text = "<p>아래 링크를 클릭하셔서 가입을 완료 하세요.</p>"
-                + "<div><a target='_blank' href='http://localhost:8080/member/verify?id=" + uuid + "'> 가입 완료 </a></div>";
+        String subject = "[Clean! SnowTown] 회원가입 인증";
+        String text = "[Clean! SnowTown] 다음 링크를 클릭하셔서 가입을 완료 하세요."
+                + "href='http://localhost:8080/member/verify?id=" + uuid;
         mailComponents.sendMail(email, subject, text);
 
         return true;
@@ -164,10 +164,10 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
 
         String email = parameter.getUserId();
-        String subject = "[Smart Clean]비밀번호 초기화 메일입니다.";
-        String text = "<p>[Smart Clean]비밀번호 초기화 메일입니다.</p>" +
-                "<p>아래 링크를 클릭하셔서 비밀번호를 초기화 해주세요.</p>" +
-                "<div><a target = '_blank' href = 'http://localhost:8080/member/reset/password?id=" + uuid + "' </div>";
+        String subject = "[Clean! SnowTown] 비밀번호 초기화 메일입니다.";
+        String text = "[Clean! SnowTown]" +
+                "아래 링크를 클릭하셔서 비밀번호를 초기화 해주세요" +
+                "href = 'http://localhost:8080/member/reset/password?id=" + uuid;
         mailComponents.sendMail(email, subject, text);
 
         return false;

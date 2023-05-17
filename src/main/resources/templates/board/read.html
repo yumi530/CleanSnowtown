@@ -29,11 +29,13 @@
         </tr>
         <tr>
             <td th:text="작성자"></td>
-            <td th:text="${board.writeName}"></td>
+            <td th:text="${board.member.name}"></td>
         </tr>
         <tr>
             <td th:text="내용"></td>
-            <td><textarea th:text="${board.contents}" class="form-control-plaintext h-25" rows="10"></textarea></td>
+            <td><textarea th:text="${board.contents}"
+                          class="form-control-plaintext h-25"
+                          rows="10"></textarea></td>
         </tr>
         <tr>
             <td th:text="작성일"></td>
@@ -47,7 +49,7 @@
 
 
     <div class="d-flex justify-content-md-center">
-        <a th:href="@{${board.filepath}}">다운받기</a>
+        <a th:href="@{${board.filepath}}" download>다운받기</a>
     </div>
     <div class="d-flex justify-content-md-center">
         <button class="btn btn-warning modify" onclick="update()">수정</button>
@@ -56,10 +58,13 @@
     <!--</form>-->
 </div>
 <div id="comment-write" class="d-flex justify-content-center">
-    <input type="text" id="commentWriter" class="form-control-sm" placeholder="작성자">
+    <input type="text" id="commentWriter" class="form-control-sm"
+           placeholder="작성자">
     <!--    작성자 <span id="commentWriter" sec:authentication="principal.username"></span>-->
     <input type="text" id="comments" class="form-control-md" placeholder="댓글내용">
-    <button id="comment-write-btn" class="btn btn-secondary" onclick="commentWrite()">댓글작성</button>
+    <button id="comment-write-btn" class="btn btn-secondary"
+            onclick="commentWrite()">댓글작성
+    </button>
 </div>
 
 <!--<div id="comment-list" class="w-50 p-3 d-flex justify-content-center">-->
@@ -68,32 +73,34 @@
         댓글 목록
     </div>
     <ul class="list-group list-group-flush" th:each="comment: ${commentList}">
-        <li class="list-group-item"><span th:text="${comment.commentId}" ></span><span th:text="${comment.commentWriter}"></span>
-            <span th:text="${comment.comments}"></span><span th:text="${comment.commentCreatedTime}"></span></li>
+        <li class="list-group-item"><span th:text="${comment.commentId}"></span><span
+                th:text="${comment.commentWriter}"></span>
+            <span th:text="${comment.comments}"></span><span
+                    th:text="${comment.commentCreatedTime}"></span></li>
     </ul>
-<!--    <thead>-->
-<!--    <table class="table table-hover table-bordered" style="">-->
-<!--        <tr>-->
-<!--            <th scope="col">댓글번호</th>-->
-<!--            <th scope="col">작성자</th>-->
-<!--            <th scope="col">내용</th>-->
-<!--            <th scope="col">작성시간</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="comment: ${commentList}">-->
-<!--            <td  th:text="${comment.commentId}"></td>-->
-<!--            <td th:text="${comment.commentWriter}"></td>-->
-<!--            <td th:text="${comment.comments}"></td>-->
-<!--            <td th:text="${comment.commentCreatedTime}"></td>-->
-<!--        </tr>-->
-<!--        <tr th:if="${#lists.size(commentList) < 1}">-->
-<!--            <td colspan="5">-->
-<!--                <p class="nothing">작성된 댓글이 없습니다.</p>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
+    <!--    <thead>-->
+    <!--    <table class="table table-hover table-bordered" style="">-->
+    <!--        <tr>-->
+    <!--            <th scope="col">댓글번호</th>-->
+    <!--            <th scope="col">작성자</th>-->
+    <!--            <th scope="col">내용</th>-->
+    <!--            <th scope="col">작성시간</th>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tbody>-->
+    <!--        <tr th:each="comment: ${commentList}">-->
+    <!--            <td  th:text="${comment.commentId}"></td>-->
+    <!--            <td th:text="${comment.commentWriter}"></td>-->
+    <!--            <td th:text="${comment.comments}"></td>-->
+    <!--            <td th:text="${comment.commentCreatedTime}"></td>-->
+    <!--        </tr>-->
+    <!--        <tr th:if="${#lists.size(commentList) < 1}">-->
+    <!--            <td colspan="5">-->
+    <!--                <p class="nothing">작성된 댓글이 없습니다.</p>-->
+    <!--            </td>-->
+    <!--        </tr>-->
+    <!--        </tbody>-->
+    <!--    </table>-->
 
 </div>
 
@@ -102,9 +109,8 @@
     <a th:href="@{list}">글 목록 보기</a>
 </div>
 <footer class="container" th:fragment="foot">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2017–2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot;
-        <a href="#">Terms</a></p>
+    <p class="float-end"><a href="/">Back to top</a></p>
+    <p>&copy; 2023 SnowTown. &middot;</p>
 </footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"
@@ -144,7 +150,7 @@
                 output += "<th>작성시간</th></tr>";
                 for (let i in res) {
                     output += "<tr>";
-                    output += "<td>" + res[i].boardNo + "</td>";
+                    output += "<td>" + res[i].commentId + "</td>";
                     output += "<td>" + res[i].commentWriter + "</td>";
                     output += "<td>" + res[i].comments + "</td>";
                     output += "<td>" + res[i].commentCreatedTime + "</td>";

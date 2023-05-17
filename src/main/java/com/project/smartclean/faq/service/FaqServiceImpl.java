@@ -46,7 +46,7 @@ public class FaqServiceImpl implements FaqService {
     @Override
     public FaqDto readFaq(Long faqNo) {
         faqRepository.updateViews(faqNo);
-        Faq faq = faqRepository.findById(faqNo).get();
+;        Faq faq = faqRepository.findById(faqNo).get();
         return FaqDto.of(faq);
     }
 

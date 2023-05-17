@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class NoticeController {
     private final NoticeService noticeService;
+
     @GetMapping("/list")
     public String noticeList(Model model, @PageableDefault(page = 0, size = 10, sort = "noticeNo", direction = Sort.Direction.DESC) Pageable pageable, Search search) {
 
@@ -81,7 +82,7 @@ public class NoticeController {
 
     @PostMapping("/delete")
     public String deleteNotice(NoticeDto noticeDto) {
-         noticeService.deleteNotice(noticeDto);
+        noticeService.deleteNotice(noticeDto);
         return "redirect:list";
     }
 

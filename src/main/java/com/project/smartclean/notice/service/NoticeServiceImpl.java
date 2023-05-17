@@ -48,8 +48,9 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Transactional
     public NoticeDto readNotice(Long noticeNo) {
-        noticeRepository.updateViews(noticeNo);
         Notice notice = noticeRepository.findById(noticeNo).get();
+        notice.setNoticeCnt(notice.getNoticeCnt() + 1);
+        noticeRepository.save(notice);
         return NoticeDto.of(notice);
     }
 

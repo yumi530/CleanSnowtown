@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/member/register","member/verify","board/list")
+                .antMatchers("/", "/member/register","member/verify","board/list","notice/**","faq/**")
                 .permitAll();
 
         http
@@ -63,10 +63,10 @@ public class SecurityConfiguration {
 //                .antMatchers("/center/**")
 //                .hasAuthority("ROLE_CENTER");
 
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/order/**","/board/**")
-//                .hasAuthority("ROLE_USER");
+        http
+                .authorizeRequests()
+                .antMatchers("/order/**","/board/**")
+                .hasAuthority("ROLE_USER");
 
         http
                 .formLogin()

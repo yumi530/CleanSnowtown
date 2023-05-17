@@ -3,42 +3,6 @@
 <head th:replace="fragments/layout.html :: head('회원가입')">
     <meta charset="UTF-8">
     <title th:text="${title}">회원가입</title>
-<!--    <style>-->
-<!--        html,-->
-<!--        body {-->
-<!--            height: 100%;-->
-<!--        }-->
-
-<!--        body {-->
-<!--            display: flex;-->
-<!--            align-items: center;-->
-<!--            padding-top: 40px;-->
-<!--            padding-bottom: 10px;-->
-<!--            background-color: #f5f5f5;-->
-<!--        }-->
-
-<!--        .form-signin {-->
-<!--            max-width: 330px;-->
-<!--            padding: 15px;-->
-<!--        }-->
-
-
-<!--        .form-signin .form-floating:focus-within {-->
-<!--            z-index: 2;-->
-<!--        }-->
-
-<!--        .form-signin input[type="email"] {-->
-<!--            margin-bottom: 10px;-->
-<!--            border-bottom-right-radius: 0;-->
-<!--            border-bottom-left-radius: 0;-->
-<!--        }-->
-
-<!--        .form-signin input[type="password"] {-->
-<!--            margin-bottom: 10px;-->
-<!--            border-top-left-radius: 0;-->
-<!--            border-top-right-radius: 0;-->
-<!--        }-->
-<!--    </style>-->
 </head>
 
 <body class="text-center">
@@ -51,7 +15,7 @@
     <form method="post" action="/member/register">
         <h1 class="h3 mb-3 fw-normal">회원가입</h1>
     <div class="form-floating">
-        <input type="email" name="userId" class="form-control" id="userId" placeholder="name@example.com" required />
+        <input type="email" name="userId" class="form-control" id="userId" placeholder="name@example.com"  required />
         <label for="userId">아이디(Email)</label>
     </div>
     <div class="form-floating">
@@ -63,7 +27,7 @@
         <label for="birth">생년월일</label>
     </div>
     <div class="form-floating">
-        <input type="password" name="password" class="form-control" id="password" placeholder="password" required />
+        <input type="password" name="password" class="form-control" id="password" placeholder="password"required />
         <label for="password">비밀번호 입력</label>
     </div>
         <div class="form-floating">
@@ -91,7 +55,7 @@
             <label for="address2">상세주소</label>
         </div>
         <div class="form-floating">
-        <input type="text" class="form-control" id="address3" name="address3" placeholder="참고항목">
+        <input type="text" class="form-control" id="address3" name="address3" placeholder="참고항목" required/>
         <label for="address3">참고항목</label>
         </div>
     </div>
@@ -106,32 +70,25 @@
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                var addr = '';
+                var extraAddr = '';
 
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                if (data.userSelectedType === 'R') {
                     addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                } else {
                     addr = data.jibunAddress;
                 }
 
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
                 if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+
                     if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
                         extraAddr += data.bname;
                     }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
+
                     if(data.buildingName !== '' && data.apartment === 'Y'){
                         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                     }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+
                     if(extraAddr !== ''){
                         extraAddr = ' (' + extraAddr + ')';
                     }
@@ -152,7 +109,9 @@
     }
 </script>
 
-<footer class="container" th:replace="/fragments/layout.html :: foot">
+<footer class="container" th:fragment="foot">
+    <p class="float-end"><a href="/">Back to top</a></p>
+    <p>&copy; 2023 SnowTown. &middot;</p>
 </footer>
 </main>
 
