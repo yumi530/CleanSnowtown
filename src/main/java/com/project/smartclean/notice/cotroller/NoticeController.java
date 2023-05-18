@@ -67,6 +67,7 @@ public class NoticeController {
         return "notice/read";
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/update")
     public String updateNotice(Long noticeNo, Model model) {
         NoticeDto noticeDto = noticeService.readNotice(noticeNo);
@@ -80,6 +81,7 @@ public class NoticeController {
         return "redirect:list";
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/delete")
     public String deleteNotice(NoticeDto noticeDto) {
         noticeService.deleteNotice(noticeDto);

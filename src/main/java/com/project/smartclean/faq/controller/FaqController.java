@@ -70,6 +70,7 @@ public class FaqController {
     }
 
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/update")
     public String updateFaq(Long faqNo, Model model) {
         FaqDto faqDto = faqService.readFaq(faqNo);
@@ -83,6 +84,7 @@ public class FaqController {
         return "redirect:list";
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/delete")
     public String deleteNotice(FaqDto faqDto) {
          faqService.deleteFaq(faqDto);

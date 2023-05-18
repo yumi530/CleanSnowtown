@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -89,9 +90,9 @@ public class BoardController {
         return "board/read";
     }
 
-    // @PreAuthorize("isAuthenticated() and ((#board.writeName == @authentication.name) or hasRole('ROLE_ADMIN'))")
+    @PreAuthorize("@webSecurity.checkAuthority(authentication, #user)")
     @GetMapping("/update")
-    public String updateForm(Long boardNo, Model model) {
+    public String updateForm(Long boardNo, Model model, @AuthenticationPrincipal User user) {
         Board board = boardService.readBoard(boardNo);
         model.addAttribute("boardUpdate", board);
         return "board/modify";
@@ -103,6 +104,7 @@ public class BoardController {
         return "redirect:list";
     }
 
+    @PreAuthorize("@webSecurity.checkAuthority(authentication, #user)")
     @GetMapping("/delete")
     public String deleteBoard(Board board, RedirectAttributes rtts) {
         boardService.deleteBoard(board);
