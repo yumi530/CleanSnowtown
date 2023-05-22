@@ -304,16 +304,18 @@ public class MemberServiceImpl implements MemberService {
             throw new MemberStopUserException("탈퇴된 회원 입니다.");
         }
 
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return member;
 
-        if (member.isAdminYn()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }
-
-
-
-        return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
+//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+////        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+//
+//        if (member.isAdminYn()) {
+//            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//        }
+//
+//
+//
+//        return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
 
     }
 

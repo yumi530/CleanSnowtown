@@ -1,6 +1,7 @@
 package com.project.smartclean.member.controller;
 
 import com.project.smartclean.admin.dto.MemberDto;
+import com.project.smartclean.member.entity.Member;
 import com.project.smartclean.member.model.ResetPasswordInput;
 import com.project.smartclean.member.model.ServiceResult;
 import com.project.smartclean.member.model.SignUpForm;
@@ -71,8 +72,8 @@ public class MemberController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(@AuthenticationPrincipal User user, Model model) {
-        MemberDto memberDto = memberService.detail(user.getUsername());
+    public String mypage(@AuthenticationPrincipal Member member, Model model) {
+        MemberDto memberDto = memberService.detail(member.getUsername());
         model.addAttribute("member", memberDto);
         return "member/mypage";
     }
