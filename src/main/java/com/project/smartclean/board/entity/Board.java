@@ -1,10 +1,7 @@
 package com.project.smartclean.board.entity;
 
 import com.project.smartclean.member.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -14,9 +11,11 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
+@ToString(exclude = "member")
 public class Board {
     @Id
     @GeneratedValue
@@ -41,8 +40,8 @@ public class Board {
     @JoinColumn(name = "user_id")
     private Member member;
 
-    public String getWriteName() {
-        return this.member.getName();
-    }
+//    public String getWriteName() {
+//        return this.member.getName();
+//    }
 
 }

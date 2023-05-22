@@ -60,15 +60,15 @@ public class BoardController {
     }
 
     @GetMapping("/insert")
-    public String insertBoard(Model model, @AuthenticationPrincipal User user) {
-        MemberDto member = memberService.detail(user.getUsername());
-        model.addAttribute("writeName", member.getName());
+    public String insertBoard(Model model, @AuthenticationPrincipal Member member) {
+        MemberDto memberDto = memberService.detail(member.getUsername());
+        model.addAttribute("writeName", memberDto.getName());
         return "board/insert";
     }
 
     @PostMapping("/insert")
-    public String insertBoardSubmit(Board board, @AuthenticationPrincipal User user, MultipartFile file) throws IOException {
-        boardService.insertBoard(board, user, file);
+    public String insertBoardSubmit(Board board, @AuthenticationPrincipal Member member, MultipartFile file) throws IOException {
+        boardService.insertBoard(board, member, file);
         return "redirect:list";
     }
 
@@ -90,23 +90,23 @@ public class BoardController {
         return "board/read";
     }
 
-    @PreAuthorize("@webSecurity.checkAuthority(authentication, #user)")
+    @PreAuthorize("@webSecurity.checkAuthority(authentication, #boardNo)")
     @GetMapping("/update")
-    public String updateForm(Long boardNo, Model model, @AuthenticationPrincipal User user) {
-        Board board = boardService.readBoard(boardNo);
-        model.addAttribute("boardUpdate", board);
+    public String updateForm(Long boardNo, Model model) {
+        Board readBoard = boardService.readBoard(boardNo);
+        model.addAttribute("boardUpdate", readBoard);
         return "board/modify";
     }
 
     @PostMapping("/update")
-    public String updateBoard(Board board, @AuthenticationPrincipal User user, MultipartFile file) throws IOException {
-        boardService.updateBoard(board, user, file);
+    public String updateBoard(Board board, @AuthenticationPrincipal Member member, MultipartFile file) throws IOException {
+        boardService.updateBoard(board, member, file);
         return "redirect:list";
     }
 
-    @PreAuthorize("@webSecurity.checkAuthority(authentication, #user)")
+//    @PreAuthorize("@webSecurity.checkAuthority(authentication, #user)")
     @GetMapping("/delete")
-    public String deleteBoard(Board board, RedirectAttributes rtts) {
+    public String deleteBoard(Board board) {
         boardService.deleteBoard(board);
         return "forward:board/list";
     }

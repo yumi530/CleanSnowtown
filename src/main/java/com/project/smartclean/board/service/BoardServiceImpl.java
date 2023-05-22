@@ -10,7 +10,6 @@ import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,7 +29,7 @@ public class BoardServiceImpl implements BoardService {
     private final MemberRepository memberRepository;
 
     @Override
-    public Board insertBoard(Board board, User user, MultipartFile file) throws IOException {
+    public Board insertBoard(Board board, Member member, MultipartFile file) throws IOException {
         String fileName = "";
         if (file != null) {
             String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
@@ -41,7 +40,7 @@ public class BoardServiceImpl implements BoardService {
             file.transferTo(saveFile);
         }
 
-        Member writeMember = memberRepository.findById(user.getUsername()).get();
+        Member writeMember = memberRepository.findById(member.getUsername()).get();
 
         Board insertBoard = Board.builder()
                 .boardNo(board.getBoardNo())
@@ -57,22 +56,6 @@ public class BoardServiceImpl implements BoardService {
                 .build();
 
         return boardRepository.save(insertBoard);
-
-
-
-//        BoardDto insertBoard = BoardDto.builder()
-//                .boardNo(boardDto.getBoardNo())
-//                .title(boardDto.getTitle())
-//                .contents(boardDto.getContents())
-//                .writeDate(LocalDateTime.now())
-//                .writeName(member)
-//                .cnt(0)
-//                .filename(fileName)
-//                .filepath("/files/" + fileName)
-//                .build();
-//
-//        return boardRepository.save(insertBoard.toEntity());
-
     }
 
     @Override
@@ -83,18 +66,8 @@ public class BoardServiceImpl implements BoardService {
         return board;
     }
 
-//    @Override
-//    public Board readBoard(Board board, User user, Member member) {
-//        if (board.getWriteName() == user.getUsername() || member.isAdminYn()) {
-//            Board read = boardRepository.findById(board.getBoardNo()).get();
-//            read.setCnt(read.getCnt());
-//            Board result = boardRepository.save(read);
-//            return result;
-//        } return null;
-//    }
-
     @Override
-    public Board updateBoard(Board board, User user, MultipartFile file) throws IOException {
+    public Board updateBoard(Board board, Member member, MultipartFile file) throws IOException {
         Board findBoard = boardRepository.findById(board.getBoardNo()).get();
 
         String fileName = "";
