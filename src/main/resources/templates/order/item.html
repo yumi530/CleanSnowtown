@@ -79,9 +79,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="x : ${list}" th:class="${x.category}">
+        <tr th:each="x : ${list}" th:class="${x.category.categoryName}">
             <td th:text="${x.itemId}"></td>
-            <td th:text="${x.category}"></td>
+            <td th:text="${x.category.categoryName}"></td>
             <td th:text="${x.itemName}"></td>
             <td th:text="${x.price}"></td>
             <td th:text="${x.itemDetail}"></td>
@@ -89,7 +89,7 @@
                 <label class="checkbox-inline">
                     <button type="button" class="btn btn-light select-button"
                             th:data-id="${x.itemId}"
-                            th:data-category="${x.category}"
+                            th:data-category="${x.category.categoryName}"
                             th:data-name="${x.itemName}"
                             th:data-detail=" ${x.itemDetail}"
                             th:data-price="${x.price}">
