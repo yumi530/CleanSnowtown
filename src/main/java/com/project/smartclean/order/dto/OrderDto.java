@@ -1,6 +1,8 @@
 package com.project.smartclean.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.smartclean.member.entity.Member;
+import com.project.smartclean.order.entity.Item;
 import com.project.smartclean.order.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +23,7 @@ public class OrderDto {
     private String orderId;
     private String orderUserName;
     private String orderUserPhone;
-    private String userId;
+    private Member member;
     private String itemName;
     private String address1;
     private String address2;
@@ -36,6 +40,7 @@ public class OrderDto {
         return OrderDto.builder()
                 .orderId(order.getOrderId())
                 .orderUserName(order.getOrderUserName())
+                .member(order.getMember())
                 .districtName(order.getDistrictName())
                 .districtCode(order.getDistrictCode())
                 .disposeDate(order.getDisposeDate())
@@ -47,5 +52,14 @@ public class OrderDto {
                 .orderStatus(order.getOrderStatus())
                 .build();
     }
-
+    public static List<OrderDto> of (List<Order> orders) {
+        if (orders == null) {
+            return null;
+        }
+            List<OrderDto> orderDtoList = new ArrayList<>();
+            for(Order order : orders) {
+                orderDtoList.add(of(order));
+            }
+            return orderDtoList;
+        }
 }

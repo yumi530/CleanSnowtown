@@ -1,6 +1,6 @@
 package com.project.smartclean.order.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.smartclean.member.entity.Member;
 import com.project.smartclean.order.dto.OrderDto;
 import com.project.smartclean.order.dto.ItemDto;
 import com.project.smartclean.order.entity.Item;
@@ -8,18 +8,13 @@ import com.project.smartclean.order.entity.Order;
 import com.project.smartclean.order.model.OrderForm;
 import com.project.smartclean.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,11 +23,11 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
+//    @InitBinder
+//    protected void initBinder(WebDataBinder binder) {
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+//    }
 
     @GetMapping("/item")
     public String getAllList(Model model, Item item) {
@@ -42,18 +37,26 @@ public class OrderController {
     }
 
     @PostMapping("/item")
-    public String orderItem(Model model, @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")OrderForm parameter) {
-        Order orderItem = orderService.order(parameter);
+    public String orderItem(Model model, OrderForm parameter, @AuthenticationPrincipal Member member) {
+        Order orderItem = orderService.order(parameter, member);
         model.addAttribute("order", orderItem);
         model.addAttribute("resultList", parameter.getResultList());
 //        parameter.getResultList();
         return "order/confirm";
     }
 
-
-    @GetMapping("/detail")
-    public String orderDetail(Model model, OrderForm parameter, String userId) {
-        OrderDto orderDto = orderService.orderDetail(parameter.getOrderId());
+//원래 버전
+//    @GetMapping("/detail")
+//    public String orderDetail(Model model, @AuthenticationPrincipal Member member) {
+////        member.getUserId();
+//        List<OrderDto> orderDto = orderService.detail(member.getUsername());
+//        model.addAttribute("order", orderDto);
+//        return "order/detail";
+//    }
+        @GetMapping("/detail")
+    public String orderDetail(Model model, @AuthenticationPrincipal Member member, Order order) {
+//        member.getUserId();
+        List<OrderDto> orderDto = orderService.detail(member.getUsername(), order);
         model.addAttribute("order", orderDto);
         return "order/detail";
     }
