@@ -1,10 +1,7 @@
 package com.project.smartclean.order.entity;
 
 import com.project.smartclean.admin.entity.Category;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +9,9 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString(exclude = "category_name")
 @Builder
 @Entity
 public class Item {
@@ -26,7 +25,7 @@ public class Item {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category")
+    @JoinColumn(name = "category_name")
     private Category category;
 
 }

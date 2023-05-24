@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class Category {
     @Id
-    private String category;
+    private String categoryName;
 
 
 
