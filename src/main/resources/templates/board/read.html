@@ -20,8 +20,8 @@
         <h3 class="fw-bold">수거요청</h3>
     </div>
 </div>
+
 <div class="container">
-    <!--    <form id="getForm">-->
     <table class="table">
         <tr>
             <td th:text="제목"></td>
@@ -53,9 +53,12 @@
     </div>
     <div class="d-flex justify-content-md-center">
         <button class="btn btn-warning modify" onclick="update()">수정</button>
-        <button class="btn btn-info remove">삭제</button>
+        <form method="post" action="/board/delete">
+            <input type="hidden" th:name="boardNo" th:value="${board.boardNo}">
+            <button class="btn btn-info remove" type="submit">삭제</button>
+        </form>
     </div>
-    <!--</form>-->
+
 </div>
 <div id="comment-write" class="d-flex justify-content-center">
     <input type="text" id="commentWriter" class="form-control-sm"
