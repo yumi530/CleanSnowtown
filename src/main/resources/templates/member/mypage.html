@@ -24,7 +24,7 @@
                         <a href="/member/mypage" class="link-secondary"
                            style="text-decoration:none">회원 정보 조회</a>
                         <hr>
-                        <a href="/order/detail" class="link-secondary"
+                        <a href="/order/list" class="link-secondary"
                            style="text-decoration:none">배출 신청 조회</a>
                     </ul>
                 </div>
@@ -65,7 +65,9 @@
                         <p class="text-secondary">회원상태</p>
                         <p class="fw-bold" th:text="${member.userStatus}"></p>
                     </div>
-                    <a class="link-dark" th:href="@{/member/withdraw(id=${member.getUserId()})}">회원 탈퇴</a>
+                    <a class="link-dark"
+                       th:href="@{/member/withdraw(id=${member.getUserId()})}">회원
+                        탈퇴</a>
                 </div>
             </div>
         </div>

@@ -20,6 +20,7 @@
             <h5 class="card-title text-center">배출 신청이 완료되었습니다 !</h5>
         </div>
         <ul class="list-group list-group-flush">
+            <input type="hidden" th:value="${order.member.userId}"/>
             <li class="list-group-item">주문번호 : <span th:text="${order.orderId}"
                                                      th:value="${order.orderId}"></span>
             </li>
