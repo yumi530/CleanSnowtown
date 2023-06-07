@@ -1,36 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head  th:replace="fragments/layout.html :: head('마이 페이지')">
+<head th:replace="fragments/layout.html :: head('마이 페이지')">
     <meta charset="UTF-8">
     <title th:text="${title}">마이페이지</title>
 </head>
 <body>
-<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu">
+<nav class="py-2 bg-light border-bottom"
+     th:replace="/fragments/layout.html :: menu">
 </nav>
-<header class="py-3 mb-4 border-bottom" th:replace="/fragments/layout.html :: header">
+<header class="py-3 mb-4 border-bottom"
+        th:replace="/fragments/layout.html :: header">
 </header>
 
-<h1>주문 상세 페이지</h1>
-            <p>주문내역 / 취소내역</p>
-            주문번호
-            <div th:text="${order.orderId}"></div>
-            주문일시
-            <div th:text="${order.orderDate}"></div>
-            주문내역
-            <div th:text="${order.itemName}"></div>
-             배출예정일시
-            <div th:text="${order.disposeDate}"></div>
-            주문상태
-            <div th:text="${order.orderStatus}"></div>
-            수거상태
-            <div th:text="${order.pickupStatus}"></div>
+<div class="container">
+    <h1>배출 신청 상세 페이지</h1>
+    <!--<input type="hidden" th:value="${order.member.userId}"/>-->
+    <p>주문 / 취소내역</p>
+<!--    <form th:action="cancel" method="post">-->
+    주문번호
+    <div th:text="${order?.orderId}"></div>
+    주문일시
+    <div th:text="${order?.orderDate}"></div>
+    주문내역
+    <div th:text="${order?.itemName}"></div>
+    배출예정일시
+    <div th:text="${order?.disposeDate}"></div>
+    주문상태
+    <div th:text="${order?.orderStatus}"></div>
+    수거상태
+    <div th:text="${order?.pickupStatus}"></div>
+    <div>
+        <button onclick="cancel()">주문취소</button>
     </div>
-    </div>
+</div>
+<div class="d-flex justify-content-center">
+    <a th:href="@{/order/list}">목록 보기</a>
 </div>
 <footer class="container" th:fragment="foot">
     <p class="float-end"><a href="/">Back to top</a></p>
     <p>&copy; 2023 SnowTown. &middot;</p>
 </footer>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+        crossorigin="anonymous"></script>
+<script th:inline="javascript">
+    const cancel = () => {
+        const orderId = [[${order?.orderId}]];
+        const orderStatus = [[${order?.orderStatus}]]
 
+        $.ajax({
+           type: "post",
+            url: "/order/cancel",
+            data:
+                {"orderId": orderId,
+                "orderStatus":orderStatus},
+        });
+    }
+</script>
 </body>
 </html>
