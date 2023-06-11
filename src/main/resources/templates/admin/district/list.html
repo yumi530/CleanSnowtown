@@ -27,45 +27,34 @@
 
         <div class="d-flex justify-content-center">
 
-        <table>
+            <table class="table">
             <thead>
-            <tr th:align="center">
-                <th>번호</th>
-                <th>
-                    행정동명
-                </th>
+            <tr>
+                <th scope="col">번호</th>
+                <th scope="col">행정동명</th>
+                <th scope="col">수정</th>
+                <th scope="col">삭제</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="x : ${list}">
                 <td th:text="${x.districtCode}">
-                    <input type="hidden" name="id" th:value="${x.districtCode}"/>
-                    <p th:text="${x.districtCode}">1</p>
+                    <input type="hidden" name="districtCode" th:value="${x.districtCode}"/>
+                    <p th:text="${x.districtCode}"></p>
                 </td>
                 <td>
                     <input th:value="${x.districtName}" type="text" name="districtName"/>
                 </td>
-
                 <td>
-                    <div class="inline-div">
-                        <form id="updateForm" method="post"
-                              action="/admin/item/update.do">
-                            <input type="hidden" name="wasteId"
-                                   th:value="${x.districtCode}"/>
-                            <input type="hidden" name="districtName"
-                                   th:value="${x.districtName}"/>
-                            <button type="submit" id="updateButton">수정</button>
-                        </form>
-                    </div>
-
-                    <div class="inline-div">
+                            <button class="updateDistrictButton">수정</button>
+                </td>
+                <td>
                         <form id="deleteForm" method="post"
                               action="/admin/district/delete.do">
-                            <input type="hidden" name="wasteId"
+                            <input type="hidden" name="districtCode"
                                    th:value="${x.districtCode}"/>
                             <button type="submit">삭제</button>
                         </form>
-                    </div>
                 </td>
             </tr>
 
@@ -80,18 +69,39 @@
 </div>
 </div>
 
-<script>
+<script th:inline="javascript">
     (function () {
-        const updateButton = document.getElementById("updateButton");
-        updateButton.addEventListener("click", function(e) {
-            e.preventDefault();
+        let updateDistrictButtons = document.getElementsByClassName("updateDistrictButton");
+        for (let i = 0; i < updateDistrictButtons.length; i++) {
+            updateDistrictButtons[i].addEventListener("click", updateDistrict);
+        }
+        function updateDistrict() {
+            const districtRow = this.closest("tr")
+            const districtCode = districtRow.querySelector("input[name='districtCode']").value;
+            const districtName = districtRow.querySelector("input[name='districtName']").value;
 
-        })
+            $.ajax({
+                url: "/admin/district/update.do",
+                type: "post",
+                data: {
+                    "districtCode" : districtCode,
+                    "districtName" : districtName
+                },
+                success: function (res) {
+                    console.log(res);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                },
+            })
+        }
     })();
+
 </script>
 
 <footer class="container" th:fragment="foot">
     <p class="float-end"><a href="/">Back to top</a></p>
     <p>&copy; 2023 SnowTown. &middot;</p>
+</footer>
 </body>
 </html>
