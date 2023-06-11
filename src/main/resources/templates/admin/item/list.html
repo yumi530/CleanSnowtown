@@ -7,18 +7,19 @@
 </head>
 
 <body th:align="center">
-<nav class="py-2 bg-light border-bottom"  th:replace="/fragments/layout.html :: menu-admin">
+<nav class="py-2 bg-light border-bottom"
+     th:replace="/fragments/layout.html :: menu-admin">
 </nav>
 <div class="p-3 mb-2 bg-light rounded-1">
     <div class="d-flex justify-content-center">
-        <h3  class="fw-bold">대형 폐기물 관리</h3>
+        <h3 class="fw-bold">대형 폐기물 관리</h3>
     </div>
 </div>
 
 <div class="list">
     <div class="d-flex justify-content-center">
         <form method="post" action="/admin/item/add.do">
-            <input value="" type="text" name="category" placeholder="카테고리"
+            <input value="" type="text" name="categoryName" placeholder="카테고리"
                    required>
             <input value="" type="text" name="itemName" placeholder="폐기물명"
                    required>
@@ -29,88 +30,43 @@
         </form>
     </div>
 
-    <div class="d-flex justify-content-center">
-    <table>
+    <table class="table">
         <thead>
-        <tr th:align="center">
-            <th>번호</th>
-            <th>카테고리</th>
-            <th>
-                폐기물명
-            </th>
-            <th>
-                규격
-            </th>
-            <th>
-                가격
-            </th>
-            <!--            <th>-->
-            <!--                순서-->
-            <!--            </th>-->
+        <tr>
+            <th scope="col">번호</th>
+            <th scope="col">카테고리</th>
+            <th scope="col">폐기물명</th>
+            <th scope="col">규격</th>
+            <th scope="col">가격</th>
+            <th scope="col">수정</th>
+            <th scope="col">삭제</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="x : ${list}">
-            <td th:text="${x?.itemId}">
-                <input type="hidden" name="id" th:value="${x?.itemId}"/>
-                <p th:text="${x?.itemId}">1</p>
+            <td><input type="hidden" name="itemId" th:value="${x?.itemId}"
+                       th:text="${x?.itemId}"/>
+                <!--                <p th:text="${x?.itemId}"></p>-->
+            </td>
+            <td><input th:value="${x?.categoryName}" type="text"
+                       name="categoryName"/></td>
+            <td><input th:value="${x?.itemName}" type="text" name="itemName"/>
+            </td>
+            <td><input th:value="${x?.itemDetail}" type="text"
+                       name="itemDetail"/></td>
+            <td><input th:value="${x?.price}" type="text" name="price"/></td>
+            <td>
+                <button class="update-button">수정</button>
             </td>
             <td>
-                <input th:value="${x.category}" type="text" name="category"/>
-            </td>
-            <td>
-                <input th:value="${x.itemName}" type="text" name="itemName"/>
-            </td>
-            <td>
-                <input th:value="${x.itemDetail}" type="text" name="itemDetail"/>
-            </td>
-            <td>
-                <input th:value="${x.price}" type="text" name="price"/>
-            </td>
-            <td>
-<!--                <div class="inline-div">-->
-<!--                    <form id="updateForm" method="post"-->
-<!--                          action="/admin/item/update.do">-->
-<!--                        <input type="hidden" name="itemId"-->
-<!--                               th:value="${x.itemId}"/>-->
-<!--                        <input type="hidden" name="category"-->
-<!--                               th:value="${x.category}"/>-->
-<!--                        <input type="hidden" name="itemName"-->
-<!--                               th:value="${x.itemName}"/>-->
-<!--                        <input type="hidden" name="itemDetail"-->
-<!--                               th:value="${x.itemDetail}"/>-->
-<!--                        <input type="hidden" name="price"-->
-<!--                               th:value="${x.price}"/>-->
-<!--                        <button type="submit" id="updateButton">수정</button>-->
-<!--                    </form>-->
-
-
-                <div class="inline-div">
-                    <button class="update-button" type="button">수정</button>
-                </div>
-
-                <div class="inline-div">
-                    <form name="deleteForm" method="post"
-                          action="/admin/item/delete.do">
-                        <input type="hidden" name="itemId"
-                               th:value="${x?.itemId}"/>
-                        <button type="submit">삭제</button>
-                    </form>
-                </div>
+                <form name="deleteForm" method="post"
+                      action="/admin/item/delete.do">
+                    <input type="hidden" name="itemId"
+                           th:value="${x?.itemId}"/>
+                    <button type="submit">삭제</button>
+                </form>
             </td>
         </tr>
-        <div class="inline-div">
-        <form name="updateForm" method="post" action="/admin/item/update.do">
-            <input type="hidden" name="itemId"/>
-<!--            <input type="hidden" name="itemId"-->
-<!--                   th:value="${x.itemId}"/>-->
-            <input type="hidden" name="category"/>
-            <input type="hidden" name="itemName"/>
-            <input type="hidden" name="itemDetail"/>
-            <input type="hidden" name="price" />
-        </form>
-    </div>
-
         <tr th:if="${#lists.size(list) < 1}">
             <td colspan="5">
                 <p class="nothing">내용이 없습니다.</p>
@@ -121,16 +77,48 @@
 </div>
 </div>
 
+<script th:inline="javascript">
+    (function () {
+        let updateButtons = document.getElementsByClassName("update-button");
+        for (let i = 0; i < updateButtons.length; i++) {
+            updateButtons[i].addEventListener("click", updateItem);
+        }
 
-<!--<script>-->
-<!--    (function () {-->
-<!--        const updateButton = document.getElementById("updateButton");-->
-<!--        updateButton.addEventListener("click", function(e) {-->
-<!--            e.preventDefault();-->
+        function updateItem() {
+            console.log("수정 버튼!");
+            console.log(this);
 
-<!--        })-->
-<!--    })();-->
-<!--</script>-->
+            const itemRow = this.closest("tr");
+            const itemId = itemRow.querySelector("input[name='itemId']").value;
+            const categoryName = itemRow.querySelector("input[name='categoryName']").value;
+            const itemName = itemRow.querySelector("input[name='itemName']").value;
+            const itemDetail = itemRow.querySelector("input[name='itemDetail']").value;
+            const price = itemRow.querySelector("input[name='price']").value;
+
+            $.ajax({
+                url: "/admin/item/update.do",
+                type: "post",
+                data: {
+                    "itemId": itemId,
+                    "categoryName": categoryName,
+                    "itemName": itemName,
+                    "itemDetail": itemDetail,
+                    "price": price
+                },
+
+                /* 응답 확인 부분 */
+                success: function (res) {
+                    console.log(res);
+                },
+
+                /* 에러 확인 부분 */
+                error: function (xhr) {
+                    console.log(xhr);
+                },
+            });
+        }
+    })();
+</script>
 
 <footer class="container" th:fragment="foot">
     <p class="float-end"><a href="/">Back to top</a></p>
