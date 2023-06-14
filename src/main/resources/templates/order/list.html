@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments/layout.html :: head('배출 정보')">
+    <meta charset="UTF-8">
+    <title th:text="${title}">배출 정보</title>
+</head>
+<body>
+<nav class="py-2 bg-light border-bottom"
+     th:replace="/fragments/layout.html :: menu">
+</nav>
+<header class="py-3 mb-4 border-bottom"
+        th:replace="/fragments/layout.html :: header">
+</header>
+<div class="container-fluid">
+    <div class="row">
+        <div class="innerDiv col-12">
+            <div class="innerDiv row">
+                <div class="innerDiv col-2"
+                     style="background-color: whitesmoke;">
+                    <ul>
+                        <p class="text-secondary">마이 페이지</p>
+                        <hr>
+                        <a href="/member/mypage" class="link-secondary"
+                           style="text-decoration:none;">회원 정보 조회</a>
+                        <hr>
+                        <a href="/order/list" class="link-secondary"
+                           style="text-decoration:none;">배출 신청 조회</a>
+                    </ul>
+                </div>
+                <div class="list">
+
+
+                    <!--        <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>-->
+                    <div class="p-3 mb-2 bg-light rounded-1">
+                        <div class="d-flex justify-content-center">
+                            <h3 class="fw-bold">내 배출 신청 조회</h3>
+                        </div>
+                    </div>
+                    <!--    <div class="d-flex justify-content-end">-->
+                    <!--        <form th:action="@{/admin/member/list.do}" method="get">-->
+                    <!--            <select name="searchCondition">-->
+                    <!--                <option value="userId">아이디</option>-->
+                    <!--                <option value="name">이름</option>-->
+                    <!--                <option value="phone">연락처</option>-->
+                    <!--            </select>-->
+                    <!--            <input name="searchKeyword" type="text"/>-->
+                    <!--            <button type="submit" class="btn btn-secondary">검색</button>-->
+                    <!--        </form>-->
+                    <!--    </div>-->
+                    <div class="container">
+                        <table class="table">
+                            <thead class="text-center">
+                            <tr>
+                                <!--            <th>행정동</th>-->
+                                <th>
+                                    주문번호
+                                </th>
+                                <th>
+                                    주문일시
+                                </th>
+                                <th>
+                                    이름
+                                </th>
+                                <th>
+                                    연락처
+                                </th>
+                                <th>
+                                    행정동
+                                </th>
+                                <th>
+                                    배출예정일
+                                </th>
+                                <th>
+                                    주문상태
+                                </th>
+                                <th>
+                                    수거상태
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-center">
+                            <tr th:each="order : ${list}">
+                                <td>
+                                        <a th:text="${order.orderId}"
+                                        th:href="${'/order/detail/' + order.orderId}">
+                                        </a>
+
+                                </td>
+                                <td th:text="${order.orderDate}"></td>
+                                <td th:text="${order.orderUserName}"></td>
+                                <td th:text="${order.orderUserPhone}"></td>
+                                <td>
+                                    <p th:text="${order.districtName}"></p>
+                                </td>
+                                <td>
+                                    <p th:text="${order.disposeDate}"></p>
+                                </td>
+                                <td th:text="${order.orderStatus}"></td>
+                                <td th:text="${order.pickupStatus}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="container" th:fragment="foot">
+    <p class="float-end"><a href="/">Back to top</a></p>
+    <p>&copy; 2023 SnowTown. &middot;</p>
+</footer>
+</body>
+</html>
