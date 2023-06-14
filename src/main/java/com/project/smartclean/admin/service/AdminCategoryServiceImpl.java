@@ -24,10 +24,9 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
 
     @Override
     public List<ItemDto> list() {
-        List<Item> items = itemRepository.findAll();
-        return ItemDto.of(items);
+        List<Item> item = itemRepository.findAll();
+        return ItemDto.of(item);
     }
-
 
     @Override
     public void addWaste(ItemDto parameter) {
