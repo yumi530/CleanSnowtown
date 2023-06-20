@@ -1,6 +1,7 @@
 # CleanSnowtown
 가상의 Snowtown 마을에서 대형 폐기물 및 소형 폐가전을 배출 신청하고 수거 확인 할 수 있는 웹사이트 입니다.
 ## 👨‍👨‍👧‍👧Use case diagram
+![use_diagram](https://github.com/yumi530/CleanSnowtown/assets/111278834/dee96945-ca02-4de4-8406-6b3b6c92852e)
 + **구청 관리자** : 온라인 민원 및 전반적인 업무 총괄
 
 + **주민센터 관리자** : 방문 접수 담당, 관리자 사이트를 이용해서 배출 등록
