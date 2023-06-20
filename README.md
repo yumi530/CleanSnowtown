@@ -74,4 +74,6 @@
     
     - 방문 접수한 건에 대해서 수거 상태를 확인할 수 있다.
 ## 💻회원 주요 기능 화면
-
+![Collage1](https://github.com/yumi530/CleanSnowtown/assets/111278834/dcd61794-e234-45f7-b780-85f79caffb0d)
+![Collage](https://github.com/yumi530/CleanSnowtown/assets/111278834/26a63a6e-9c5d-44b4-beda-0c6109e59219)
+![Collage3](https://github.com/yumi530/CleanSnowtown/assets/111278834/f9175455-9c53-4f3c-851d-c24b2fd7e9b3)
